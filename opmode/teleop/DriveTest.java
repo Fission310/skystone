@@ -3,17 +3,19 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
+// import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
+import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 
 @TeleOp(name="Drive", group="Teleop")
 public class DriveTest extends LinearOpMode {
 
     double leftInput, rightInput, slideInput;
 
-    private Drivetrain drive = new Drivetrain();
+    // private Drivetrain drive = new Drivetrain();
+    private Acquirer acquirer = new Acquirer();
     @Override
     public void runOpMode() throws InterruptedException {
-        drive.init(hardwareMap);
+        acquirer.init(hardwareMap);
 
         while(!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("Status", "Waiting in Init");
@@ -26,8 +28,15 @@ public class DriveTest extends LinearOpMode {
             leftInput = gamepad1.left_stick_y;
             rightInput = gamepad1.right_stick_y;
             slideInput = -gamepad1.left_trigger + gamepad1.right_trigger;
-
-            drive.tankDriveScaled(leftInput, rightInput, slideInput);
+            if (gamepad1.a) {
+                acquirer.acquirerForward();
+            }
+            else if (gamepad1.b) {
+                acquirer.acquirerReverse();
+            }
+            else {
+                acquirer.acquirerOff();
+            }
         }
     }
 }
