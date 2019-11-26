@@ -28,13 +28,15 @@ public class DriveTest extends LinearOpMode {
             leftInput = gamepad1.left_stick_y;
             rightInput = gamepad1.right_stick_y;
             slideInput = -gamepad1.left_trigger + gamepad1.right_trigger;
+            acquirer.acquirerOff();
             if (gamepad1.a) {
                 acquirer.acquirerForward();
+                wait(100);
+                acquirer.acquirerOff();
             }
-            else if (gamepad1.b) {
+            if (gamepad1.a) {
                 acquirer.acquirerReverse();
-            }
-            else {
+                wait(100);
                 acquirer.acquirerOff();
             }
         }
