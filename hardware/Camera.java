@@ -96,7 +96,6 @@ public class Camera extends org.firstinspires.ftc.teamcode.hardware.Mechanism {
     // Class Members
     private OpenGLMatrix lastLocation = null;
     private VuforiaLocalizer vuforia = null;
-    priv
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
@@ -287,7 +286,7 @@ public class Camera extends org.firstinspires.ftc.teamcode.hardware.Mechanism {
     public void deactivateTrackables () {
         targetsSkyStone.deactivate();
     }
-    public void targetVisible() {
+    public String targetVisible() {
         // check all the trackable targets to see which one (if any) is visible.
         for (VuforiaTrackable trackable : allTrackables) {
             if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
@@ -297,22 +296,23 @@ public class Camera extends org.firstinspires.ftc.teamcode.hardware.Mechanism {
                 if (robotLocationTransform != null) {
                     lastLocation = robotLocationTransform;
                 }
-                break;
+                return trackable.getName();
             }
         }
+        return "no target found";
     }
 
-    public void getRobotLocation {
+    public float[] getLocation(){
 
             // Provide feedback as to where the robot is located (if we know)
         VectorF translation = lastLocation.getTranslation();
-        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
+        return new float[]{translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch};
+    }
 
-
-    public void get
+    public float[] getRotation(){
                 // express the rotation of the robot in degrees.
         Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
+        return new float[]{rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle};
         }
 
-    }
 }
