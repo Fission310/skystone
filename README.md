@@ -1,5 +1,5 @@
 # FTC Fission 310 2019-2020 SKYSTONE
-
+Managed by Jason Lam (more to come)
 ## Setting up your coding environment 
 - Download Java 8 by following these [instructions](https://dojo.stuycs.org/resources/software_installation_and_tips/installation_instructions/programming_languages/installing_jdk.html)
 - Create a GitHub account
@@ -11,8 +11,6 @@
 - Clone this repository into the above path and rename its directory to teamcode
 - Open Android Studio and click "Open an existing Android Studio project"
 - Open the directory that holds the ftc_app repository
-- You should be set! Let us know if you have any problems and we will help you out.
-- We will have a follow-up lecture about Git and Android Studio
 
 ## Deploying code to the robot
 - You may need to download [Motorola Mobile Drivers](https://support.motorola.com/us/en/solution/MS88481) to allow your computer to correctly transfer files onto the phones.
