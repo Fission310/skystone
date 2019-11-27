@@ -12,13 +12,15 @@ public class DriveTest extends LinearOpMode {
     double leftInput, rightInput, slideInput;
 
     // private Drivetrain drive = new Drivetrain();
-    private Acquirer acquirer = new Acquirer();
+    private Acquirer acquirer = new Acquirer(this);
     @Override
     public void runOpMode() throws InterruptedException {
         acquirer.init(hardwareMap);
 
         while(!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("Status", "Waiting in Init");
+            telemetry.update();
+            telemetry.addData("ggg", acquirer.acquirerLeft.getPower());
             telemetry.update();
         }
 
@@ -28,17 +30,19 @@ public class DriveTest extends LinearOpMode {
             leftInput = gamepad1.left_stick_y;
             rightInput = gamepad1.right_stick_y;
             slideInput = -gamepad1.left_trigger + gamepad1.right_trigger;
-            acquirer.acquirerOff();
+            telemetry.addData("boof", acquirer.acquirerLeft.getPower());
             if (gamepad1.a) {
                 acquirer.acquirerForward();
-                wait(100);
-                acquirer.acquirerOff();
+                sleep(500);
             }
-            if (gamepad1.a) {
+            else if (gamepad1.b) {
                 acquirer.acquirerReverse();
-                wait(100);
+                sleep(500);
+            }
+            else {
                 acquirer.acquirerOff();
             }
+            telemetry.update();
         }
     }
 }

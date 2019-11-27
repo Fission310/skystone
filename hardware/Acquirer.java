@@ -9,7 +9,6 @@ public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism 
 
     public CRServo acquirerLeft;
     public CRServo acquirerRight;
-    public LinearOpMode opMode;
 
     public Acquirer() { }
 
@@ -18,21 +17,21 @@ public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism 
     public void init(HardwareMap hwMap) {
         acquirerLeft = hwMap.crservo.get("acquirerLeft");
         acquirerRight = hwMap.crservo.get("acquirerRight");
-
+        acquirerOff();
     }
 
     public void acquirerOff(){
-        acquirerLeft.setPower(0);
-        acquirerRight.setPower(0);
+        acquirerLeft.setPower(0.0);
+        acquirerRight.setPower(0.0);
     }
 
     public void acquirerForward(){
-        acquirerLeft.setPower(0.3);
-        acquirerRight.setPower(-0.3);
+        acquirerLeft.setPower(0.8);
+        acquirerRight.setPower(-0.8);
     }
 
     public void acquirerReverse() {
-        acquirerLeft.setPower(-0.3);
-        acquirerRight.setPower(0.3);
+        acquirerLeft.setPower(-0.8);
+        acquirerRight.setPower(0.8);
     }
 }
