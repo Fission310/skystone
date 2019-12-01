@@ -48,6 +48,17 @@ public class DriveTest extends LinearOpMode {
             else {
                 acquirer.acquirerOff();
             }
+
+            if (gamepad1.right_bumper) {
+                acquirer.slidesUp();
+            }
+
+            else if (gamepad1.left_bumper) {
+                acquirer.slidesDown();
+            }
+            else {
+                acquirer.slidesOff();
+            }
             telemetry.update();
         }
     }
