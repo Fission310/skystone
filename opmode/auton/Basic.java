@@ -7,17 +7,17 @@ import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 
 @Autonomous(name = "Basic")
 public class Basic extends LinearOpMode {
-    Drivetrain drivetrain = new Drivetrain(this);
+    Drivetrain drive = new Drivetrain(this);
 
     public void runOpMode() {
-        drivetrain.init(hardwareMap);
+        drive.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         waitForStart();
-        drivetrain.driveToPos(12, 5);
-        drivetrain.turn(90, 5);
-        drivetrain.driveToPos(24, 5);
-        drivetrain.turn(-90, 5  );
-        drivetrain.driveToPos(12 , 5);
+//        drivetrain.driveToPos(6, .7);
+        drive.turn(90, .7);
+//        drivetrain.driveToPos(-6, .7);
+//        drivetrain.turn(-90, .7  );
+//        drivetrain.driveToPos(6 , .7);
     }
 }
