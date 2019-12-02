@@ -38,6 +38,7 @@ public class pidTuning extends LinearOpMode
             telemetry.addData("P", formatVal(p));
             telemetry.addData("I", formatVal(i));
             telemetry.addData("D", formatVal(d));
+            telemetry.addData("imu heading", drive.getHeading());
             telemetry.update();
 
             if (gamepad1.a) {
