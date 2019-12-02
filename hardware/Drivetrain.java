@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.PIDController;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -17,6 +18,8 @@ import org.firstinspires.ftc.teamcode.hardware.Mechanism;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.lang.Thread.sleep;
 
 public class Drivetrain extends Mechanism {
     private static final double     COUNTS_PER_MOTOR_REV    = 1120;
@@ -187,36 +190,7 @@ public class Drivetrain extends Mechanism {
      * @param degrees Degrees to turn, + is left - is right
      */
     public void turn(int degrees, double power) {
-        // restart imu angle tracking.
-        resetAngle();
-        double p = 2;
-        double i = 0;
-        pidRotate.setPID(p, i, 0);
-
-        pidRotate.setSetpoint(degrees);
-        pidRotate.setInputRange(0, degrees);
-        pidRotate.setOutputRange(0, power);
-        pidRotate.setTolerance(1.0 / Math.abs(degrees) * 115.0);
-        pidRotate.enable();
-        if (degrees < 0) {
-            while (getAngle() == 0) {
-                setPower(-power, power, -power, power);
-            }
-            do {
-                power = pidRotate.performPID(getAngle()); // power will be - on right turn.
-                setPower(power, -power, power, -power);
-            }
-            while (!pidRotate.onTarget());
-        }
-        else    // left turn.
-            do {
-                power = pidRotate.performPID(getAngle()); // power will be + on left turn.
-                setPower(power, -power, power, -power);
-            }
-            while (!pidRotate.onTarget());
-
-        setPower(0);
-        resetAngle();
+       turn (degrees,power, 0.02, 0.001, 0);
     }
 
     public void turn(int degrees, double power, double p, double i, double d) {
@@ -227,27 +201,28 @@ public class Drivetrain extends Mechanism {
         pidRotate.setSetpoint(degrees);
         pidRotate.setInputRange(0, degrees);
         pidRotate.setOutputRange(0, power);
-        pidRotate.setTolerance(1.0 / Math.abs(degrees) * 115.0);
         pidRotate.setTolerance(1);
         pidRotate.enable();
         if (degrees < 0) {
             while (getAngle() == 0) {
-                setPower(-power, power, -power, power);
+                setPower(power, -power, power, -power);
+                opMode.sleep(100);
             }
             do {
                 power = pidRotate.performPID(getAngle()); // power will be - on right turn.
-                setPower(power, -power, power, -power);
+                setPower(-power, power, -power, power);
             }
             while (!pidRotate.onTarget());
         }
         else    // left turn.
             do {
                 power = pidRotate.performPID(getAngle()); // power will be + on left turn.
-                setPower(power, -power, power, -power);
+                setPower(-power, power, -power, power);
             }
             while (!pidRotate.onTarget());
 
         setPower(0);
+        opMode.sleep(500);
         resetAngle();
     }
 }
