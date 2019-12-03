@@ -2,14 +2,15 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
-import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 
-@TeleOp(name="Drive", group="Teleop")
-public class DriveTest extends LinearOpMode {
+import org.firstinspires.ftc.teamcode.hardware.Acquirer;
+import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
+
+@TeleOp(name="Main", group="Teleop")
+public class Main extends LinearOpMode {
 
     double leftInput, rightInput, slideInput;
+    boolean precisionMode = false;
 
     private Drivetrain drive = new Drivetrain(this);
     private Acquirer acquirer = new Acquirer(this);
@@ -35,7 +36,24 @@ public class DriveTest extends LinearOpMode {
             double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
             double rightX = gamepad1.right_stick_x;
 
-            drive.teleDrive(r, robotAngle, rightX);
+            if (gamepad1.x) {
+                precisionMode = !precisionMode;
+            }
+            if (precisionMode) {
+                drive.teleDrive(r/4, robotAngle, rightX);
+            }
+            else {
+                drive.teleDrive(r, robotAngle, rightX);
+            }
+
+            if (slideInput > 0.5) {
+                acquirer.acquirerForward();
+                acquirer.slidesDown(0.3);
+            }
+            else if (slideInput < 0.5) {
+                acquirer.acquirerReverse();
+                acquirer.slidesUp(0.3);
+            }
 
             if (gamepad1.a) {
                 acquirer.acquirerForward();

@@ -216,7 +216,8 @@ public class Drivetrain extends Mechanism {
         }
         else    // left turn.
             do {
-                power = pidRotate.performPID(getAngle()); // power will be + on left turn.
+
+   power = pidRotate.performPID(getAngle()); // power will be + on left turn.
                 setPower(-power, power, -power, power);
             }
             while (!pidRotate.onTarget());
