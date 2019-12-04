@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.skystone.hardware;
+package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -99,6 +99,10 @@ public class Camera extends org.firstinspires.ftc.teamcode.hardware.Mechanism {
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
+
+    public Camera(LinearOpMode opMode){
+        this.opMode = opMode;
+    }
 
     @Override public void init(HardwareMap hwMap) {
         /*
