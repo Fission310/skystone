@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 
@@ -33,6 +32,8 @@ public class Main extends LinearOpMode {
             slideInput = -gamepad1.left_trigger + gamepad1.right_trigger;
 
             double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
+            // scuffed way to smooth the input
+            r = Math.pow(r,3);
             double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
             double rightX = gamepad1.right_stick_x;
 
@@ -46,13 +47,13 @@ public class Main extends LinearOpMode {
                 drive.teleDrive(r, robotAngle, rightX);
             }
 
-            if (slideInput > 0.5) {
+            if (slideInput > 0.2) {
                 acquirer.acquirerForward();
-                acquirer.slidesDown(0.3);
+                acquirer.slidesUp(0.6);
             }
-            else if (slideInput < 0.5) {
+            else if (slideInput < -0.2) {
                 acquirer.acquirerReverse();
-                acquirer.slidesUp(0.3);
+                acquirer.slidesDown(0.6);
             }
 
             if (gamepad1.a) {
@@ -77,6 +78,9 @@ public class Main extends LinearOpMode {
             else {
                 acquirer.slidesOff();
             }
+
+            telemetry.addData("slide", slideInput);
+            telemetry.addData("righttrigger", gamepad1.right_trigger);
             telemetry.update();
         }
     }

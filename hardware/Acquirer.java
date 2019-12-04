@@ -42,11 +42,11 @@ public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism 
 
 
     public void slidesUp(double power) {
-        acquirerSlides.setPower(power);
+        acquirerSlides.setPower(-power);
     }
 
     public void slidesDown(double power) {
-        acquirerSlides.setPower(-power);
+        acquirerSlides.setPower(power);
     }
 
     public void slidesOff() {

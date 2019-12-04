@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Platform extends Mechanism {
 
-    public Servo platformLeft;
-    public Servo platformRight;
+    private Servo platformLeft;
+    private Servo platformRight;
 
     public Platform() { }
 
@@ -31,8 +31,11 @@ public class Platform extends Mechanism {
        platformRight.setPosition(0.7);
    }
 
-   public void platformSet(double angle) {
+   public void platformLeftSet(double angle) {
         platformLeft.setPosition(angle);
-        platformLeft.setPosition(1-angle);
    }
+
+    public void platformRightSet(double angle) {
+        platformRight.setPosition(angle);
+    }
 }
