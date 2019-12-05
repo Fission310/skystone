@@ -113,12 +113,13 @@ public class Drivetrain extends Mechanism {
         backLeft.setMode(mode);
     }
 
+
     public void teleDrive(double r, double robotAngle, double rightX) {
-        // should be fixed now
-        double v1 = r * Math.cos(robotAngle) + rightX;
-        double v2 = r * Math.sin(robotAngle) - rightX;
-        double v3 = r * Math.sin(robotAngle) + rightX;
-        double v4 = r * Math.cos(robotAngle) - rightX;
+        // I tried mathing it out and then I went to trial and error; no idea why it works like this
+        double v1 = -r * Math.sin(robotAngle) + rightX;
+        double v2 = -r * Math.cos(robotAngle) - rightX;
+        double v3 = -r * Math.cos(robotAngle) + rightX;
+        double v4 = -r * Math.sin(robotAngle) - rightX;
         setPower(v1,v2,v3,v4);
     }
 

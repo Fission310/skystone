@@ -16,15 +16,14 @@ public class Arm extends Mechanism {
     public void init(HardwareMap hwMap) {
         backArm = hwMap.servo.get("backArm");
         armUp();
-        armDown();
     }
 
    public void armUp() {
-        backArm.setPosition(0.7);
+        backArm.setPosition(0.75);
    }
 
    public void armDown() {
-        backArm.setPosition(0.7);
+        backArm.setPosition(0.2);
    }
 
    public void armSet(double angle) {

@@ -17,18 +17,17 @@ public class Platform extends Mechanism {
     public void init(HardwareMap hwMap) {
         platformLeft = hwMap.servo.get("platformLeft");
         platformRight = hwMap.servo.get("platformRight");
-        platformDown();
         platformUp();
     }
 
    public void platformUp() {
-        platformLeft.setPosition(0.7);
-        platformRight.setPosition(0.3);
+        platformLeft.setPosition(0.23);
+        platformRight.setPosition(1);
    }
 
    public void platformDown(){
-       platformLeft.setPosition(0.3);
-       platformRight.setPosition(0.7);
+       platformLeft.setPosition(0.60);
+       platformRight.setPosition(0.61);
    }
 
    public void platformLeftSet(double angle) {

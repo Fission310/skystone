@@ -31,11 +31,11 @@ public class SingleMain extends LinearOpMode {
             rightInput = gamepad1.right_stick_y;
             slideInput = -gamepad1.left_trigger + gamepad1.right_trigger;
 
-            double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
+            double r = Math.hypot(gamepad1.right_stick_x, gamepad1.left_stick_y);
             // scuffed way to smooth the input
             r = Math.pow(r,3);
-            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
-            double rightX = gamepad1.right_stick_x;
+            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.right_stick_x) - Math.PI / 4;
+            double rightX = gamepad1.left_stick_x;
 
             if (gamepad1.x) {
                 precisionMode = !precisionMode;

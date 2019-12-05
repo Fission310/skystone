@@ -46,11 +46,11 @@ public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism 
     }
 
     public void slidesUp() {
-        acquirerSlides.setPower(-1);
+        acquirerSlides.setPower(1);
     }
 
     public void slidesDown() {
-        acquirerSlides.setPower(1);
+        acquirerSlides.setPower(-1);
     }
 
     public void slidesOff() {
@@ -58,16 +58,16 @@ public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism 
     }
 
     public void slidesSet(double power) {
-        acquirerSlides.setPower(0);
+        acquirerSlides.setPower(power);
     }
 
     public void acquiring() {
-        slidesSet(0.3);
-        acquirerSet(0.3);
+        slidesSet(-0.5);
+        acquirerSet(0.5);
     }
 
     public void scoring () {
-        slidesSet(-0.3);
-        acquirerSet(-0.3);
+        slidesSet(0.5);
+        acquirerSet(-0.5);
     }
 }

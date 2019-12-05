@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 
-@TeleOp(name="Main", group="Teleop")
+@TeleOp(name="PairedMain", group="Teleop")
 public class PairedMain extends LinearOpMode {
 
     double leftInput1, rightInput1, slideInput1, leftInput2, rightInput2, slideInput2;
@@ -44,14 +44,14 @@ public class PairedMain extends LinearOpMode {
             rightInput2 = gamepad2.right_stick_y;
             slideInput2 = -gamepad2.left_trigger + gamepad2.right_trigger;
 //            How far the stick goes
-            double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
+            double r = Math.hypot(gamepad1.right_stick_x, gamepad1.left_stick_y);
 //            scuffed way to smooth inputs by cubing
             r = Math.pow(r,3);
             leftInput2 = Math.pow(leftInput2, 3);
 //            Angle of the stick
-            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
+            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.right_stick_x) - Math.PI / 4;
 //            How far the right stick goes from side to side (turning)
-            double rightX1 = gamepad1.right_stick_x;
+            double rightX1 = gamepad1.left_stick_x;
 
 //            Controller 1: Driver
 
@@ -68,12 +68,12 @@ public class PairedMain extends LinearOpMode {
 
 //            Moving the Lift
 //            Checks if right joystick is moved vertically
-            if (Math.abs(rightInput2) > 0.1) {
+            if (Math.abs(rightInput2) > 0.3) {
 //                Either scores or acquires depending on if up or down
-                if (rightInput2 > 0.1) {
+                if (rightInput2 > 0.3) {
                     acquirer.scoring();
                 }
-                else if (rightInput2 < 0.1) {
+                else if (rightInput2 < 0.3) {
                     acquirer.acquiring();
                 }
             }
@@ -87,6 +87,9 @@ public class PairedMain extends LinearOpMode {
                 else if (gamepad2.left_bumper) {
                     acquirer.acquirerDown();
                 }
+                else {
+                    acquirer.acquirerOff();
+                }
 //                Linear slide uses the left joystick (same logic as right joystick)
                 if (Math.abs(leftInput2) > 0.1) {
 //                Raises or lowers depending on if up or down
@@ -96,6 +99,10 @@ public class PairedMain extends LinearOpMode {
                         acquirer.slidesDown();
                     }
                 }
+                else {
+                    acquirer.slidesOff();
+                }
+
             }
 //            Miscellaneous arm and alignment servos
 //            Arm servo uses the up and down d pad
@@ -118,6 +125,8 @@ public class PairedMain extends LinearOpMode {
 //            telemetry.addData("Driving", "");
             telemetry.addData("slide", slideInput1);
             telemetry.addData("righttrigger", gamepad1.right_trigger);
+            telemetry.addData("rightx1", rightX1);
+            telemetry.addData("leftx1", gamepad1.left_stick_x);
             telemetry.update();
         }
     }

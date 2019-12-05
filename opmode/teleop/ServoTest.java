@@ -19,20 +19,23 @@ public class ServoTest extends LinearOpMode {
     Platform platform = new Platform(this);
     public void runOpMode() {
         arm.init(hardwareMap);
+        platform.init(hardwareMap);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         waitForStart();
-        if (gamepad1.a) {
-            arm.armSet(armAngle);
-        }
-        if (gamepad1.x) {
-            platform.platformLeftSet(leftAngle);
-        }
-        if (gamepad1.y) {
-            platform.platformRightSet(rightAngle);
-        }
+        while (opModeIsActive()) {
+            if (gamepad1.a) {
+                arm.armSet(armAngle);
+            }
+            if (gamepad1.x) {
+                platform.platformLeftSet(leftAngle);
+            }
+            if (gamepad1.y) {
+                platform.platformRightSet(rightAngle);
+            }
 
         }
+    }
 }
 
