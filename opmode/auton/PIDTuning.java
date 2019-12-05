@@ -9,8 +9,8 @@ import com.acmerobotics.dashboard.FtcDashboard;
 
 
 @Config
-@Autonomous(name = "Basic")
-public class Basic extends LinearOpMode {
+@Autonomous(name = "PIDTuning")
+public class PIDTuning extends LinearOpMode {
 
     public static double p = 0.02;
     public static double i = 0;
