@@ -30,26 +30,44 @@ public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism 
         acquirerRight.setPower(0.0);
     }
 
-    public void acquirerForward(){
-        acquirerLeft.setPower(0.8);
-        acquirerRight.setPower(-0.8);
+    public void acquirerUp(){
+        acquirerLeft.setPower(1);
+        acquirerRight.setPower(-1);
     }
 
-    public void acquirerReverse() {
-        acquirerLeft.setPower(-0.8);
-        acquirerRight.setPower(0.8);
+    public void acquirerDown() {
+        acquirerLeft.setPower(-1);
+        acquirerRight.setPower(1);
     }
 
-
-    public void slidesUp(double power) {
-        acquirerSlides.setPower(-power);
+    public void acquirerSet(double power) {
+        acquirerLeft.setPower(-power);
+        acquirerRight.setPower(power);
     }
 
-    public void slidesDown(double power) {
-        acquirerSlides.setPower(power);
+    public void slidesUp() {
+        acquirerSlides.setPower(-1);
+    }
+
+    public void slidesDown() {
+        acquirerSlides.setPower(1);
     }
 
     public void slidesOff() {
         acquirerSlides.setPower(0);
+    }
+
+    public void slidesSet(double power) {
+        acquirerSlides.setPower(0);
+    }
+
+    public void acquiring() {
+        slidesSet(0.3);
+        acquirerSet(0.3);
+    }
+
+    public void scoring () {
+        slidesSet(-0.3);
+        acquirerSet(-0.3);
     }
 }

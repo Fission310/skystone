@@ -38,11 +38,11 @@ public class DriveTest extends LinearOpMode {
             drive.teleDrive(r, robotAngle, rightX);
 
             if (gamepad1.a) {
-                acquirer.acquirerForward();
+                acquirer.acquirerUp();
                 sleep(500);
             }
             else if (gamepad1.b) {
-                acquirer.acquirerReverse();
+                acquirer.acquirerDown();
                 sleep(500);
             }
             else {
@@ -50,11 +50,11 @@ public class DriveTest extends LinearOpMode {
             }
 
             if (gamepad1.right_bumper) {
-                acquirer.slidesUp(0.7);
+                acquirer.slidesUp();
             }
 
             else if (gamepad1.left_bumper) {
-                acquirer.slidesDown(0.7);
+                acquirer.slidesDown();
             }
             else {
                 acquirer.slidesOff();
