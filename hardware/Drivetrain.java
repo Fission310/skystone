@@ -8,18 +8,14 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.PIDController;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.hardware.Mechanism;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static java.lang.Thread.sleep;
 
 public class Drivetrain extends Mechanism {
     private static final double     COUNTS_PER_MOTOR_REV    = 1120;
@@ -105,24 +101,24 @@ public class Drivetrain extends Mechanism {
 
     public void setPower(double FL, double FR, double BL, double BR) {
         frontLeft.setPower(FL);
-        backRight.setPower(BR);
-        backLeft.setPower(BL);
         frontRight.setPower(FR);
+        backLeft.setPower(BR);
+        backRight.setPower(BL);
     }
 
     public void setMode(DcMotor.RunMode mode) {
         frontLeft.setMode(mode);
+        frontRight.setMode(mode);
         backRight.setMode(mode);
         backLeft.setMode(mode);
-        frontRight.setMode(mode);
     }
 
     public void teleDrive(double r, double robotAngle, double rightX) {
-        // I tried mathing it out and then I went to trial and error; no idea why it works like this
-        double v1 = -r * Math.sin(robotAngle) + rightX;
-        double v2 = -r * Math.cos(robotAngle) - rightX;
-        double v3 = -r * Math.cos(robotAngle) + rightX;
-        double v4 = -r * Math.sin(robotAngle) - rightX;
+        // should be fixed now
+        double v1 = r * Math.cos(robotAngle) + rightX;
+        double v2 = r * Math.sin(robotAngle) - rightX;
+        double v3 = r * Math.sin(robotAngle) + rightX;
+        double v4 = r * Math.cos(robotAngle) - rightX;
         setPower(v1,v2,v3,v4);
     }
 
@@ -133,9 +129,9 @@ public class Drivetrain extends Mechanism {
         double set_power = power*inches/Math.abs(inches);
 
         frontLeft.setTargetPosition(tickCount);
+        frontRight.setTargetPosition(tickCount);
         backLeft.setTargetPosition(tickCount);
         backRight.setTargetPosition(tickCount);
-        frontRight.setTargetPosition(tickCount);
 
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -216,14 +212,13 @@ public class Drivetrain extends Mechanism {
         }
         else    // left turn.
             do {
-
-   power = pidRotate.performPID(getAngle()); // power will be + on left turn.
+                power = pidRotate.performPID(getAngle()); // power will be + on left turn.
                 setPower(-power, power, -power, power);
             }
             while (!pidRotate.onTarget());
 
         setPower(0);
-        opMode.sleep(500);
+        opMode.sleep(200);
         resetAngle();
     }
 }
