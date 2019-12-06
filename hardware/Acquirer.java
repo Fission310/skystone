@@ -61,13 +61,13 @@ public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism 
         acquirerSlides.setPower(power);
     }
 
-    public void acquiring() {
-        slidesSet(-0.5);
-        acquirerSet(0.5);
-    }
-
-    public void scoring () {
+    public void scoring() {
         slidesSet(0.5);
         acquirerSet(-0.5);
+    }
+
+    public void acquiring () {
+        slidesSet(-0.5);
+        acquirerSet(0.5);
     }
 }

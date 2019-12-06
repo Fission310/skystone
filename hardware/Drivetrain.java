@@ -115,12 +115,19 @@ public class Drivetrain extends Mechanism {
 
 
     public void teleDrive(double r, double robotAngle, double rightX) {
-        // I tried mathing it out and then I went to trial and error; no idea why it works like this
         double v1 = -r * Math.sin(robotAngle) + rightX;
         double v2 = -r * Math.cos(robotAngle) - rightX;
         double v3 = -r * Math.cos(robotAngle) + rightX;
         double v4 = -r * Math.sin(robotAngle) - rightX;
         setPower(v1,v2,v3,v4);
+    }
+
+    public void strafeLeft() {
+        setPower(-0.5, 0.5, 0.5, -0.5);
+    }
+
+    public void strafeRight() {
+        setPower(0.5, -0.5, -0.5, -0.5);
     }
 
     public void driveToPos(double inches, double power) {
@@ -201,25 +208,28 @@ public class Drivetrain extends Mechanism {
         pidRotate.setTolerance(1);
         pidRotate.enable();
         if (degrees < 0) {
+//             Get it stuck off 0 degrees
             while (getAngle() == 0) {
                 setPower(power, -power, power, -power);
+//                 Make sure it moves a little bit
                 opMode.sleep(100);
             }
             do {
-                power = pidRotate.performPID(getAngle()); // power will be - on right turn.
+                power = pidRotate.performPID(getAngle()); // power will be negative on right turn.
                 setPower(-power, power, -power, power);
             }
             while (!pidRotate.onTarget());
         }
         else    // left turn.
             do {
-                power = pidRotate.performPID(getAngle()); // power will be + on left turn.
+                power = pidRotate.performPID(getAngle()); // power will be positive on left turn.
                 setPower(-power, power, -power, power);
             }
             while (!pidRotate.onTarget());
 
         setPower(0);
         opMode.sleep(200);
+//        ready for the next turn
         resetAngle();
     }
 }

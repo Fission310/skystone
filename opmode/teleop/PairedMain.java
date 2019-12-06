@@ -60,6 +60,12 @@ public class PairedMain extends LinearOpMode {
             if (slideInput1 > 0.3) {
                 drive.teleDrive(r/2, robotAngle, rightX1/2);
             }
+            else if (gamepad1.dpad_left) {
+                drive.strafeLeft();
+            }
+            else if (gamepad1.dpad_right) {
+                drive.strafeRight();
+                }
             else {
                 drive.teleDrive(r, robotAngle, rightX1);
             }

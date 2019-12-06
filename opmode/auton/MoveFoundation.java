@@ -26,5 +26,9 @@ public class MoveFoundation extends LinearOpMode {
         drive.driveToPos(distance, .8);
         platform.platformUp();
         drive.driveToPos(distance, 8);
+        drive.strafeRight();
+        sleep(200);
+        drive.strafeLeft();
+        sleep(2000);
     }
 }
