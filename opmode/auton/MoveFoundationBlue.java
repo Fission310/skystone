@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 @Autonomous(name = "MoveFoundationBlue")
 public class MoveFoundationBlue extends LinearOpMode {
 
-    public static double distance = 23;
+    public static double distance = 22;
     public static int time1 = 2000;
     public static int time2 = 2000;
 
@@ -25,22 +25,24 @@ public class MoveFoundationBlue extends LinearOpMode {
         platform.init(hardwareMap);
         acquirer.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
+        telemetry.addData("power", drive.varPower);
+        telemetry.addData("corr", drive.varCorr);
         telemetry.update();
         waitForStart();
         platform.platformUp();
         sleep(500);
         drive.strafeLeft();
-        sleep(1100);
+        sleep(900);
         drive.driveToPos(distance, .35);
         platform.platformDown();
         sleep(500);
-        drive.driveToPos(-distance -0.5, .2);
+        drive.driveToPos(-distance -1, .2);
         platform.platformUp();
         sleep(1000);
         acquirer.acquirerUp();
         sleep(500);
         drive.strafeRight();
-        sleep(3500);
+        sleep(3400);
 //        platform.platformUp();
 //        drive.strafeLeft();
 //        sleep(time2);

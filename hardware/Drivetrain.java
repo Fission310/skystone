@@ -37,6 +37,9 @@ public class Drivetrain extends Mechanism {
     private static final double     COUNTS_PER_INCH         =
             (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
 
+    public double varPower = 0;
+    public double varCorr = 0;
+
 
     private DcMotor frontLeft;
     private DcMotor frontRight;
@@ -109,8 +112,8 @@ public class Drivetrain extends Mechanism {
 
     public void setMode(DcMotor.RunMode mode) {
         frontLeft.setMode(mode);
-        frontRight.setMode(mode);
         backRight.setMode(mode);
+        frontRight.setMode(mode);
         backLeft.setMode(mode);
     }
 
@@ -125,14 +128,14 @@ public class Drivetrain extends Mechanism {
 
     public void strafeLeft() {
         setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        teleDrive(power,  Math.PI / 4,0);
-//        setPower(-0.5, 0.45, 0.5, -0.5);
+//        teleDrive(power,  3 * Math.PI / 4,0);
+        setPower(-0.5, 0.45, 0.55, -0.5);
     }
 
     public void strafeRight() {
         setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        teleDrive(power, 2.5,0);
-//        setPower(0.5, -0.51, -0.5, 0.5);
+//        teleDrive(power, 2.5,0);
+        setPower(0.52, -0.45, -0.5, 0.5);
     }
 
     public void driveToPos(double inches, double power) {
@@ -141,7 +144,7 @@ public class Drivetrain extends Mechanism {
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         int tickCount = (int) (inches * COUNTS_PER_INCH);
-        double set_power = power*inches/Math.abs(inches);
+        double set_power = power * inches/Math.abs(inches);
 
         frontLeft.setTargetPosition(tickCount);
         frontRight.setTargetPosition(tickCount);
@@ -152,6 +155,7 @@ public class Drivetrain extends Mechanism {
 
         while(opMode.opModeIsActive() && frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()) {
             driveStraightPID(inches, set_power);
+            varPower = set_power;
             if (time.seconds() > 3) {
                 setPower(0.0);
                 return;
@@ -159,6 +163,8 @@ public class Drivetrain extends Mechanism {
         }
 
         setPower(0.0);
+        setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void driveStraightPID(double power, double inches) {
@@ -170,6 +176,7 @@ public class Drivetrain extends Mechanism {
         pidDrive.setInputRange(-90, 90);
         pidRotate.enable();
         double corrections = pidDrive.performPID(getAngle());
+        varCorr = corrections;
 
 
         if (Math.signum(inches) >= 0) {
