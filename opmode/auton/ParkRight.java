@@ -15,7 +15,7 @@ public class ParkRight extends LinearOpMode {
 
     Drivetrain drive = new Drivetrain(this);
 
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException{
         drive.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();

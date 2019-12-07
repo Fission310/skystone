@@ -18,7 +18,7 @@ public class StoneRed extends LinearOpMode{
     Platform platform = new Platform(this);
     Arm arm = new Arm(this);
 
-    public void runOpMode(){
+    public void runOpMode() throws InterruptedException{
         drive.init(hardwareMap);
         platform.init(hardwareMap);
         arm.init(hardwareMap);

@@ -18,7 +18,7 @@ public class MoveFoundationBlue extends LinearOpMode {
     Platform platform = new Platform(this);
     Acquirer acquirer = new Acquirer(this);
 
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException{
         drive.init(hardwareMap);
         platform.init(hardwareMap);
         acquirer.init(hardwareMap);

@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.hardware.Platform;
 
 
 //@Config
-@Autonomous(name = "Match3MoveFoundationRed")
-public class Match3MoveFoundationRed extends LinearOpMode {
+@Autonomous(name = "OuterParkMoveFoundationBlue")
+public class OuterParkMoveFoundationBlue extends LinearOpMode {
 
     public static double distance = 22;
 
@@ -27,7 +27,7 @@ public class Match3MoveFoundationRed extends LinearOpMode {
         waitForStart();
         platform.platformUp();
         sleep(500);
-        drive.strafeRight();
+        drive.strafeLeft();
         sleep(600);
         drive.driveToPos(distance, .5);
         platform.platformDown();
@@ -40,7 +40,7 @@ public class Match3MoveFoundationRed extends LinearOpMode {
         drive.strafeLeft ();
         sleep(2000);
         drive.driveToPos(18, .5);
-        drive.strafeLeft ();
+        drive.strafeRight ();
         sleep(800);
 //        platform.platformUp();
 //        drive.strafeLeft();

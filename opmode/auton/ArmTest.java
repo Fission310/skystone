@@ -16,7 +16,7 @@ public class ArmTest extends LinearOpMode {
 
     Arm arm = new Arm(this);
 
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException{
         arm.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();

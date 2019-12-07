@@ -136,7 +136,7 @@ public class VuforiaSkyStoneNavigation extends LinearOpMode {
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
 
-    @Override public void runOpMode() {
+    @Override public void runOpMode()  throws InterruptedException{
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          * We can pass Vuforia the handle to a camera preview resource (on the RC phone);

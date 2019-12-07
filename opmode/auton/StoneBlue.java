@@ -18,7 +18,7 @@ public class StoneBlue extends LinearOpMode{
     Platform platform = new Platform(this);
     Arm arm = new Arm(this);
 
-    public void runOpMode(){
+    public void runOpMode() throws InterruptedException{
         drive.init(hardwareMap);
         platform.init(hardwareMap);
         arm.init(hardwareMap);
@@ -33,7 +33,7 @@ public class StoneBlue extends LinearOpMode{
         sleep(1000);
         drive.driveToPos(10, 0.5);
         drive.turn(90,0.5);
-        drive.driveToPos(-35,0.5);
+        drive.driveToPos(-40,0.5);
 
         arm.armUp();
         drive.driveToPos(15, 0.5);
