@@ -33,7 +33,7 @@ public class StoneBlue extends LinearOpMode{
         sleep(1000);
         drive.driveToPos(10, 0.5);
         drive.turn(90,0.5);
-        drive.driveToPos(-40,0.5);
+        drive.driveToPos(-35,0.5);
 
         arm.armUp();
         drive.driveToPos(15, 0.5);
