@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 
 
-@Config
+//@Config
 @Autonomous(name = "MoveFoundationBlue")
 public class MoveFoundationBlue extends LinearOpMode {
 

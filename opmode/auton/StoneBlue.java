@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Platform;
 
-@Config
+//@Config
 @Autonomous(name = "StoneBlue")
 
 public class StoneBlue extends LinearOpMode{

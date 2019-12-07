@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 
 
-@Config
+//@Config
 @Autonomous(name = "ParkLeft")
 public class ParkLeft extends LinearOpMode {
 

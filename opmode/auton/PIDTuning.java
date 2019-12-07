@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import com.acmerobotics.dashboard.FtcDashboard;
 
 
-@Config
+//@Config
 @Autonomous(name = "PIDTuning")
 public class PIDTuning extends LinearOpMode {
 
