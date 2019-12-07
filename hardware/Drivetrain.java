@@ -154,7 +154,7 @@ public class Drivetrain extends Mechanism {
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         while(opMode.opModeIsActive() && frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()) {
-            driveStraightPID(inches, set_power);
+            driveStraightPID(set_power, inches);
             varPower = set_power;
             if (time.seconds() > 3) {
                 setPower(0.0);
@@ -230,7 +230,7 @@ public class Drivetrain extends Mechanism {
      * @param degrees Degrees to turn, + is left - is right
      */
     public void turn(int degrees, double power) {
-       turn (degrees,power, 0.02, 0.001, 0);
+       turn (degrees,power, 0.02, 0, 0);
     }
 
     public void turn(int degrees, double power, double p, double i, double d) {

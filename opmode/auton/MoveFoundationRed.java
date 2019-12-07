@@ -14,8 +14,6 @@ import org.firstinspires.ftc.teamcode.hardware.Platform;
 public class MoveFoundationRed extends LinearOpMode {
 
     public static double distance = 22;
-    public static int time1 = 2000;
-    public static int time2 = 2000;
 
     Drivetrain drive = new Drivetrain(this);
     Platform platform = new Platform(this);
@@ -31,17 +29,17 @@ public class MoveFoundationRed extends LinearOpMode {
         platform.platformUp();
         sleep(500);
         drive.strafeRight();
-        sleep(900);
-        drive.driveToPos(distance, .1);
+        sleep(600);
+        drive.driveToPos(distance, .5);
         platform.platformDown();
         sleep(500);
-        drive.driveToPos(-distance -1, .2);
+        drive.driveToPos(-distance -1, .5);
         platform.platformUp();
         sleep(1000);
         acquirer.acquirerUp();
         sleep(500);
         drive.strafeLeft ();
-        sleep(3400);
+        sleep(2800);
 //        platform.platformUp();
 //        drive.strafeLeft();
 //        sleep(time2);

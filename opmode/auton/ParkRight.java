@@ -4,12 +4,14 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
+import org.firstinspires.ftc.teamcode.hardware.Platform;
 
 
 @Config
-@Autonomous(name = "ParkRed")
-public class ParkRed extends LinearOpMode {
+@Autonomous(name = "ParkRight")
+public class ParkRight extends LinearOpMode {
 
     Drivetrain drive = new Drivetrain(this);
 
@@ -18,7 +20,9 @@ public class ParkRed extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         waitForStart();
-        drive.strafeLeft();
-        sleep(3000);
+        drive.driveToPos(10, 0.5);
+        sleep(500);
+        drive.strafeRight();
+        sleep(2800);
     }
 }
