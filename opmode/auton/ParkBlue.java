@@ -3,32 +3,24 @@ package org.firstinspires.ftc.teamcode.opmode.auton;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.teamcode.hardware.Platform;
+
+import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
+import org.firstinspires.ftc.teamcode.hardware.Platform;
 
 
 @Config
-@Autonomous(name = "MoveFoundation")
-public class MoveFoundation extends LinearOpMode {
-
-    public static double distance = 0.02;
+@Autonomous(name = "ParkBlue")
+public class ParkBlue extends LinearOpMode {
 
     Drivetrain drive = new Drivetrain(this);
-    Platform platform = new Platform(this);
 
     public void runOpMode() {
         drive.init(hardwareMap);
-        platform.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         waitForStart();
-        platform.platformDown();
-        drive.driveToPos(distance, .8);
-        platform.platformUp();
-        drive.driveToPos(distance, 8);
         drive.strafeRight();
-        sleep(200);
-        drive.strafeLeft();
-        sleep(2000);
+        sleep(3000);
     }
 }

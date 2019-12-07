@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.PIDController;
 
@@ -51,7 +52,7 @@ public class Drivetrain extends Mechanism {
     double  globalAngle, power = .30, correction;
     Orientation lastAngles = new Orientation();
 
-    private double flPower = 0.0, frPower = 0.0, blPower = 0.0, brPower = 0.0;
+//    private double flPower = 0.0, frPower = 0.0, blPower = 0.0, brPower = 0.0;
 
     public Drivetrain(LinearOpMode opMode) {
         this.opMode = opMode;
@@ -102,8 +103,8 @@ public class Drivetrain extends Mechanism {
     public void setPower(double FL, double FR, double BL, double BR) {
         frontLeft.setPower(FL);
         frontRight.setPower(FR);
-        backLeft.setPower(BR);
-        backRight.setPower(BL);
+        backLeft.setPower(BL);
+        backRight.setPower(BR);
     }
 
     public void setMode(DcMotor.RunMode mode) {
@@ -123,14 +124,20 @@ public class Drivetrain extends Mechanism {
     }
 
     public void strafeLeft() {
-        setPower(-0.5, 0.5, 0.5, -0.5);
+        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        teleDrive(power,  Math.PI / 4,0);
+//        setPower(-0.5, 0.45, 0.5, -0.5);
     }
 
     public void strafeRight() {
-        setPower(0.5, -0.5, -0.5, -0.5);
+        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        teleDrive(power, 2.5,0);
+//        setPower(0.5, -0.51, -0.5, 0.5);
     }
 
     public void driveToPos(double inches, double power) {
+        ElapsedTime time = new ElapsedTime();
+        time.reset();
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         int tickCount = (int) (inches * COUNTS_PER_INCH);
@@ -144,10 +151,32 @@ public class Drivetrain extends Mechanism {
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         while(opMode.opModeIsActive() && frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()) {
-            setPower(set_power);
+            driveStraightPID(inches, set_power);
+            if (time.seconds() > 3) {
+                setPower(0.0);
+                return;
+            }
         }
 
         setPower(0.0);
+    }
+
+    public void driveStraightPID(double power, double inches) {
+        double leftSpeed = -power, rightSpeed = -power;
+        pidDrive.setPID(.07, 0, 0);
+        // Set up parameters for driving in a straight line.
+        pidDrive.setSetpoint(0);
+        pidDrive.setOutputRange(0, power);
+        pidDrive.setInputRange(-90, 90);
+        pidRotate.enable();
+        double corrections = pidDrive.performPID(getAngle());
+
+
+        if (Math.signum(inches) >= 0) {
+            setPower(leftSpeed + corrections,  rightSpeed - corrections, leftSpeed + corrections, rightSpeed - corrections);
+        } else if (Math.signum(inches) < 0){
+            setPower(leftSpeed - corrections,  rightSpeed + corrections, leftSpeed - corrections, rightSpeed + corrections);
+        }
     }
 
     /**

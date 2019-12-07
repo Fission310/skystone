@@ -44,14 +44,14 @@ public class PairedMain extends LinearOpMode {
             rightInput2 = gamepad2.right_stick_y;
             slideInput2 = -gamepad2.left_trigger + gamepad2.right_trigger;
 //            How far the stick goes
-            double r = Math.hypot(gamepad1.right_stick_x, gamepad1.left_stick_y);
+            double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
 //            scuffed way to smooth inputs by cubing
             r = Math.pow(r,3);
             leftInput2 = Math.pow(leftInput2, 3);
 //            Angle of the stick
-            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.right_stick_x) - Math.PI / 4;
+            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
 //            How far the right stick goes from side to side (turning)
-            double rightX1 = gamepad1.left_stick_x;
+            double rightX1 = gamepad1.right_stick_x;
 
 //            Controller 1: Driver
 

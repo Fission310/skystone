@@ -21,12 +21,12 @@ public class Platform extends Mechanism {
     }
 
    public void platformUp() {
-        platformLeft.setPosition(0.23);
+        platformLeft.setPosition(0.19);
         platformRight.setPosition(1);
    }
 
    public void platformDown(){
-       platformLeft.setPosition(0.60);
+       platformLeft.setPosition(0.56);
        platformRight.setPosition(0.61);
    }
 
