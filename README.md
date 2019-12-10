@@ -1,5 +1,5 @@
 # FTC Fission 310 2019-2020 SKYSTONE
-Managed by Jason Lam (more to come)
+Managed by Jason Lam and Lucas Lee (more to come)
 ## Setting up your coding environment 
 - Download Java 8 by following these [instructions](https://dojo.stuycs.org/resources/software_installation_and_tips/installation_instructions/programming_languages/installing_jdk.html)
 - Create a GitHub account
