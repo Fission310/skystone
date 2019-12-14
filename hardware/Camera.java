@@ -123,7 +123,7 @@ public class Camera extends org.firstinspires.ftc.teamcode.hardware.Mechanism {
 
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
-        VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+        targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
 
         VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
         stoneTarget.setName("Stone Target");

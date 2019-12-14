@@ -6,8 +6,8 @@ import org.firstinspires.ftc.teamcode.hardware.Camera;
 import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 
-@Autonomous(name = "CVTest")
-public class CVTest extends LinearOpMode {
+@Autonomous(name = "CVBlock")
+public class CVBlock extends LinearOpMode {
 
     Camera camera = new Camera (this);
     Arm arm = new Arm(this);
@@ -31,7 +31,7 @@ public class CVTest extends LinearOpMode {
 
         for(int i = 0; i <= 100; i++){
 
-            if (camera.targetVisible().equals("Stone Target") && camera.getLocation()[0] <= 0.5 ){
+            if (camera.targetVisible().equals("Stone Target")){
                 arm.armDown();
                 break;
 
