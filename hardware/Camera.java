@@ -63,7 +63,7 @@ public class Camera extends org.firstinspires.ftc.teamcode.hardware.Mechanism {
     private static final boolean PHONE_IS_PORTRAIT = true  ;
 
     VuforiaTrackables targetsSkyStone;
-    List<VuforiaTrackable> allTrackables;
+    ArrayList<VuforiaTrackable> allTrackables;
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -153,7 +153,7 @@ public class Camera extends org.firstinspires.ftc.teamcode.hardware.Mechanism {
         rear2.setName("Rear Perimeter 2");
 
         // For convenience, gather together all the trackable objects in one easily-iterable collection */
-        List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
+        ArrayList<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
         allTrackables.addAll(targetsSkyStone);
 
         /**
