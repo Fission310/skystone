@@ -154,7 +154,15 @@ public class Drivetrain extends Mechanism {
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         while(opMode.opModeIsActive() && frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()) {
-            driveStraightPID(set_power, inches);
+            double segment = inches/ 10;
+            for(double i = 1; i <= 5 ; i ++){
+                driveStraightPID(set_power * (i/10), segment);
+
+            }
+            for (double i = 5 ;i >= 0 ;i--){
+                driveStraightPID(set_power * (i/10), segment);
+            }
+
             varPower = set_power;
             if (time.seconds() > 3) {
                 setPower(0.0);
