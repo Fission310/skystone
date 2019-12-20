@@ -292,18 +292,18 @@ public class Camera extends org.firstinspires.ftc.teamcode.hardware.Mechanism {
     }
     public String targetVisible() {
         // check all the trackable targets to see which one (if any) is visible.
-        for (VuforiaTrackable trackable : allTrackables) {
-            if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
-                // getUpdatedRobotLocation() will return null if no new information is available since
-                // the last time that call was made, or if the trackable is not currently visible.
-                OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener) trackable.getListener()).getUpdatedRobotLocation();
-                if (robotLocationTransform != null) {
-                    lastLocation = robotLocationTransform;
-                }
-                return trackable.getName();
+        VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
+        stoneTarget.setName("Stone Target");
+        if (((VuforiaTrackableDefaultListener) stoneTarget.getListener()).isVisible()) {
+            // getUpdatedRobotLocation() will return null if no new information is available since
+            // the last time that call was made, or if the trackable is not currently visible.
+            OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener) stoneTarget.getListener()).getUpdatedRobotLocation();
+            if (robotLocationTransform != null) {
+                lastLocation = robotLocationTransform;
             }
+            return stoneTarget.getName();
         }
-        return "no target found";
+    return "no target found";
     }
 
     public float[] getLocation(){
