@@ -1,0 +1,50 @@
+package org.firstinspires.ftc.teamcode.opmode.teleop;
+
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
+
+@Config
+@TeleOp(name="StrafeTest", group="Teleop")
+public class StrafeTest extends LinearOpMode {
+    public static double p = 0.01;
+    public static double i = 0;
+    public static double d = 0;
+
+    private Drivetrain drive = new Drivetrain(this);
+    FtcDashboard dashboard = FtcDashboard.getInstance();
+
+    TelemetryPacket packet = new TelemetryPacket();
+
+    public void runOpMode() {
+        drive.init(hardwareMap);
+        drive.pidStrafe.setPID(p,i,d);
+        drive.pidRotate.setPID(p,i,d);
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+        waitForStart();
+        telemetry.addData("Correction", drive.varCorr);
+        telemetry.addData("Angle", drive.getAngle());
+        packet.put("Correction", drive.varCorr);
+        while (opModeIsActive()) {
+            if (gamepad1.a) {
+                drive.strafePID2(0.5, 1.5);
+            }
+            else if (gamepad1.b) {
+                drive.strafePID2(-0.5,1.5);
+            }
+            else if (gamepad1.x) {
+                drive.turn(90, 0.5);
+            }
+            else if (gamepad1.y) {
+                drive.turn(-90,0.5);
+            }
+            dashboard.sendTelemetryPacket(packet);
+            telemetry.update();
+        }
+    }
+}
+
