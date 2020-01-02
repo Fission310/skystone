@@ -6,6 +6,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
+import org.firstinspires.ftc.teamcode.hardware.Switch;
 
 @Config
 @TeleOp(name="StrafeTest", group="Teleop")
@@ -15,6 +16,7 @@ public class StrafeTest extends LinearOpMode {
     public static double d = 0;
 
     private Drivetrain drive = new Drivetrain(this);
+    private Switch limitSwitch = new Switch(this);
     FtcDashboard dashboard = FtcDashboard.getInstance();
 
     TelemetryPacket packet = new TelemetryPacket();
@@ -23,11 +25,13 @@ public class StrafeTest extends LinearOpMode {
         drive.init(hardwareMap);
         drive.pidStrafe.setPID(p,i,d);
         drive.pidRotate.setPID(p,i,d);
+        limitSwitch.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         waitForStart();
         telemetry.addData("Correction", drive.varCorr);
         telemetry.addData("Angle", drive.getAngle());
+        telemetry.addData("Switch:" , limitSwitch.isPressed());
         packet.put("Correction", drive.varCorr);
         while (opModeIsActive()) {
             if (gamepad1.a) {
