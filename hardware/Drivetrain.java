@@ -81,7 +81,7 @@ public class Drivetrain extends Mechanism {
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         pidRotate = new PIDController(0.005, 0.1, 0);
-        pidDrive = new PIDController(0.07,0,0);
+        pidDrive = new PIDController(0.02,0,0);
         pidStrafe = new PIDController(0.01,0,0);
 
         // Set all motors to zero power
@@ -144,6 +144,7 @@ public class Drivetrain extends Mechanism {
     public void driveToPos(double inches, double power) {
         ElapsedTime time = new ElapsedTime();
         time.reset();
+        resetAngle();
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         int tickCount = (int) (inches * COUNTS_PER_INCH);
@@ -172,7 +173,6 @@ public class Drivetrain extends Mechanism {
 
     public void driveStraightPID(double inches, double power) {
         double leftSpeed = -power, rightSpeed = -power;
-        pidDrive.setPID(.07, 0, 0);
         // Set up parameters for driving in a straight line.
         pidDrive.reset();
         pidDrive.setSetpoint(0);
@@ -190,51 +190,10 @@ public class Drivetrain extends Mechanism {
         }
     }
 
-    public void strafePID(double power, double inches) {
+    public void strafePID(double power, double duration) {
         ElapsedTime time = new ElapsedTime();
         time.reset();
-        int tickCount = (int) (inches * COUNTS_PER_INCH);
-        double setPower = power * inches/Math.abs(inches);
-
-        frontLeft.setTargetPosition(tickCount);
-        frontRight.setTargetPosition(-tickCount);
-        backLeft.setTargetPosition(-tickCount);
-        backRight.setTargetPosition(tickCount);
-
-        setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        pidStrafe.setPID(.01, 0, 0);
-        pidStrafe.reset();
-        pidStrafe.setSetpoint(0);
-        pidStrafe.setOutputRange(0, power);
-        pidStrafe.setInputRange(-90, 90);
-        pidStrafe.enable();
-
-        while(opMode.opModeIsActive() && frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()) {
-            double corrections = pidStrafe.performPID(getAngle());
-            if (Math.signum(power) >= 0){
-                setPower(setPower, -setPower, -setPower, setPower);
-//                setPower(setPower - corrections,  -setPower + corrections, -setPower - corrections, setPower + corrections);
-            }
-            else {
-                setPower(setPower, -setPower, -setPower, setPower);
-//                setPower(-setPower + corrections,  setPower - corrections, setPower + corrections, -setPower - corrections);
-            }
-            corrections = pidStrafe.performPID(getAngle());
-            varCorr = corrections;
-            varPower = setPower;
-            opMode.telemetry.update();
-        }
-
-        setPower(0.0);
-        setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
-    public void strafePID2(double power, double duration) {
-        ElapsedTime time = new ElapsedTime();
-        time.reset();
-
+        resetAngle();
         setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         pidStrafe.reset();
@@ -245,6 +204,8 @@ public class Drivetrain extends Mechanism {
 
         while(opMode.opModeIsActive() && (time.seconds() <= duration)) {
             double corrections = pidStrafe.performPID(getAngle());
+            opMode.telemetry.addData("corrections",varCorr);
+            opMode.telemetry.addData("getAngle", getAngle());
 //            if (Math.signum(power) >= 0){
                 setPower(power-corrections, -power + corrections, -power - corrections, power + corrections);
 //                setPower(setPower - corrections,  -setPower + corrections, -setPower - corrections, setPower + corrections);

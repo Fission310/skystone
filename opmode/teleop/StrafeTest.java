@@ -35,10 +35,10 @@ public class StrafeTest extends LinearOpMode {
         packet.put("Correction", drive.varCorr);
         while (opModeIsActive()) {
             if (gamepad1.a) {
-                drive.strafePID2(0.5, 1.5);
+                drive.strafePID(0.5, 1.5);
             }
             else if (gamepad1.b) {
-                drive.strafePID2(-0.5,1.5);
+                drive.strafePID(-0.5,1.5);
             }
             else if (gamepad1.x) {
                 drive.turn(90, 0.5);

@@ -12,7 +12,6 @@ import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 @Autonomous(name = "MoveFoundationBlue")
 public class MoveFoundationBlue extends LinearOpMode {
 
-    public static double distance = 22;
 
     Drivetrain drive = new Drivetrain(this);
     Platform platform = new Platform(this);
@@ -29,18 +28,17 @@ public class MoveFoundationBlue extends LinearOpMode {
         waitForStart();
         platform.platformUp();
         sleep(500);
-        drive.strafeLeft();
+        drive.strafePID( -0.5,0.9 );
         sleep(900);
-        drive.driveToPos(distance, .5);
+        drive.driveToPos(34, .5);
         platform.platformDown();
         sleep(500);
-        drive.driveToPos(-distance -1, .5);
+        drive.driveToPos(-34, .5);
         platform.platformUp();
         sleep(1000);
         acquirer.acquirerUp();
         sleep(500);
-        drive.strafeRight();
-        sleep(3400);
+        drive.strafePID(0.5, 2.8);
 //        platform.platformUp();
 //        drive.strafeLeft();
 //        sleep(time2);

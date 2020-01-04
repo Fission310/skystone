@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.hardware.Platform;
 import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
+import org.firstinspires.ftc.teamcode.hardware.Switch;
 
 @TeleOp(name="PairedMain", group="Teleop")
 public class PairedMain extends LinearOpMode {
@@ -18,6 +19,7 @@ public class PairedMain extends LinearOpMode {
     private Acquirer acquirer = new Acquirer(this);
     private Arm arm = new Arm (this);
     private Platform platform = new Platform (this);
+    private Switch limitSwitch = new Switch (this);
     @Override
     public void runOpMode() throws InterruptedException {
 //        Initializing
@@ -25,6 +27,7 @@ public class PairedMain extends LinearOpMode {
         drive.init(hardwareMap);
         arm.init(hardwareMap);
         platform.init(hardwareMap);
+        limitSwitch.init(hardwareMap);
 
         while(!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("Status", "Waiting in Init");
@@ -40,8 +43,8 @@ public class PairedMain extends LinearOpMode {
 //            rightInput1 = gamepad1.right_stick_y;
             slideInput1 = -gamepad1.left_trigger + gamepad1.right_trigger;
 //            Second controller
-            leftInput2 = gamepad2.left_stick_y;
-            rightInput2 = gamepad2.right_stick_y;
+            leftInput2 = -gamepad2.left_stick_y;
+            rightInput2 = -gamepad2.right_stick_y;
             slideInput2 = -gamepad2.left_trigger + gamepad2.right_trigger;
 //            How far the stick goes
             double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
@@ -58,7 +61,7 @@ public class PairedMain extends LinearOpMode {
 //            Driving
 //            Precision mode if trigger is held, else left stick is vector driving and right stick is turning
             if (slideInput1 > 0.3) {
-                drive.teleDrive(r/2, robotAngle, rightX1/2);
+                drive.teleDrive(r/3, robotAngle, rightX1/2);
             }
             else if (gamepad1.dpad_left) {
                 drive.strafeLeft();
@@ -66,6 +69,12 @@ public class PairedMain extends LinearOpMode {
             else if (gamepad1.dpad_right) {
                 drive.strafeRight();
                 }
+            else if (gamepad1.dpad_up) {
+                drive.driveStraightPID(1,0.2);
+            }
+            else if (gamepad1.dpad_down){
+                drive.driveStraightPID(-1,0.2);
+            }
             else {
                 drive.teleDrive(r, robotAngle, rightX1);
             }
@@ -79,7 +88,7 @@ public class PairedMain extends LinearOpMode {
                 if (rightInput2 > 0.3) {
                     acquirer.scoring();
                 }
-                else if (rightInput2 < 0.3) {
+                else if (rightInput2 < 0.3 && !limitSwitch.isPressed()) {
                     acquirer.acquiring();
                 }
             }
@@ -97,12 +106,30 @@ public class PairedMain extends LinearOpMode {
                     acquirer.acquirerOff();
                 }
 //                Linear slide uses the left joystick (same logic as right joystick)
-                if (Math.abs(leftInput2) > 0.1) {
-//                Raises or lowers depending on if up or down
-                    if (leftInput2 > 0.1) {
+                if (limitSwitch.isPressed()) {
+                    if (leftInput2>0.1) {
                         acquirer.slidesUp();
-                    } else if (leftInput2 < 0.1) {
-                        acquirer.slidesDown();
+                    }
+                    else {
+                        acquirer.slidesOff();
+                    }
+                }
+                if (Math.abs(leftInput2) > 0.1) {
+                    if (slideInput2 > 0.3) {
+//                Raises or lowers depending on if up or down
+                        if (leftInput2 > 0.1) {
+                            acquirer.slidesDown();
+                        } else if (leftInput2 < -0.1 && !limitSwitch.isPressed()) {
+                            acquirer.slidesUp();
+                        }
+                    }
+                    else {
+//                Raises or lowers depending on if up or down
+                        if (leftInput2 > 0.1) {
+                            acquirer.slidesUp();
+                        } else if (leftInput2 < -0.1 && !limitSwitch.isPressed()) {
+                            acquirer.slidesDown();
+                        }
                     }
                 }
                 else {
@@ -133,6 +160,8 @@ public class PairedMain extends LinearOpMode {
             telemetry.addData("righttrigger", gamepad1.right_trigger);
             telemetry.addData("rightx1", rightX1);
             telemetry.addData("leftx1", gamepad1.left_stick_x);
+            telemetry.addData("lefty", leftInput2);
+            telemetry.addData("limitSwitch", limitSwitch.isPressed());
             telemetry.update();
         }
     }
