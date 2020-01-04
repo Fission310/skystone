@@ -83,7 +83,18 @@ public class PairedMain extends LinearOpMode {
 
 //            Moving the Lift
 //            Checks if right joystick is moved vertically
-            if (Math.abs(rightInput2) > 0.3) {
+            if (limitSwitch.isPressed()) {
+                if (leftInput2 > 0.1) {
+                    acquirer.slidesUp();
+                }
+                else if (rightInput2 < 0.3) {
+                    acquirer.acquirerUp();
+                }
+                else {
+                    acquirer.slidesOff();
+                }
+            }
+            else if (Math.abs(rightInput2) > 0.3) {
 //                Either scores or acquires depending on if up or down
                 if (rightInput2 > 0.3) {
                     acquirer.scoring();
@@ -106,14 +117,6 @@ public class PairedMain extends LinearOpMode {
                     acquirer.acquirerOff();
                 }
 //                Linear slide uses the left joystick (same logic as right joystick)
-                if (limitSwitch.isPressed()) {
-                    if (leftInput2>0.1) {
-                        acquirer.slidesUp();
-                    }
-                    else {
-                        acquirer.slidesOff();
-                    }
-                }
                 if (Math.abs(leftInput2) > 0.1) {
                     if (slideInput2 > 0.3) {
 //                Raises or lowers depending on if up or down
