@@ -1,17 +1,17 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.Arm;
+import org.firstinspires.ftc.teamcode.hardware.TensorFlow;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Platform;
-import org.firstinspires.ftc.teamcode.hardware.Camera;
-import com.acmerobotics.dashboard.FtcDashboard;
 
-@TeleOp(name="CameraTest", group="Camera")
-public class CameraTest extends LinearOpMode {
+@TeleOp(name="TensorFlowTest", group="Camera")
+public class TensorFlowTest extends LinearOpMode {
 
     double leftInput1, rightInput1, slideInput1, leftInput2, rightInput2, slideInput2;
 //    Unused; fix later;
@@ -21,7 +21,7 @@ public class CameraTest extends LinearOpMode {
     private Acquirer acquirer = new Acquirer(this);
     private Arm arm = new Arm (this);
     private Platform platform = new Platform (this);
-    private Camera camera = new Camera(this);
+    private TensorFlow tensorflow = new TensorFlow(this);
     @Override
     public void runOpMode() throws InterruptedException {
 //        Initializing
@@ -29,8 +29,9 @@ public class CameraTest extends LinearOpMode {
         drive.init(hardwareMap);
         arm.init(hardwareMap);
         platform.init(hardwareMap);
-        camera.init(hardwareMap);
-        FtcDashboard.getInstance().startCameraStream(camera.vuforia, 0);
+        tensorflow.initVuforia();
+        tensorflow.init(hardwareMap);
+        FtcDashboard.getInstance().startCameraStream(tensorflow.vuforia, 0);
         while(!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("Status", "Waiting in Init");
             telemetry.update();
@@ -39,7 +40,8 @@ public class CameraTest extends LinearOpMode {
         waitForStart();
 
         while(opModeIsActive()) {
-            camera.activateTrackables();
+//            telemetry.addData("location:", tensorflow.skystoneLocation());
+            tensorflow.printTelemetry();
 //            Inputs for the stick and triggers
 //            Sticks are [0,1], triggers are [-1,1] as a sum
 //            leftInput1 = gamepad1.left_stick_y;
@@ -135,19 +137,8 @@ public class CameraTest extends LinearOpMode {
 
 //            Random telemetry for testing purposes
 //            telemetry.addData("Driving", "");
-            telemetry.addData("slide", slideInput1);
-            telemetry.addData("righttrigger", gamepad1.right_trigger);
-            telemetry.addData("rightx1", rightX1);
-            telemetry.addData("leftx1", gamepad1.left_stick_x);
-            telemetry.addData("Visible Target", camera.targetVisible());
-            if (!camera.targetVisible().equals("none")){
-                telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
-                        camera.getLocation()[0], camera.getLocation()[1], camera.getLocation()[2]);
-                telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f",
-                        camera.getRotation()[0], camera.getRotation()[1], camera.getRotation()[2]);
-            }
             telemetry.update();
         }
-        camera.deactivateTrackables();
+        tensorflow.deactivatetfod();
     }
 }

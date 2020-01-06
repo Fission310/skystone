@@ -9,7 +9,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @Config
-@TeleOp(name="ServoTest", group="Teleop")
+@TeleOp(name="ServoTest", group="Test")
 public class ServoTest extends LinearOpMode {
     public static double armAngle = 0;
     public static double leftAngle = 0;

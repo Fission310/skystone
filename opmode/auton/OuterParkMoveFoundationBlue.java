@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.hardware.Platform;
 
 
 //@Config
-@Autonomous(name = "OuterParkMoveFoundationBlue")
+@Autonomous(name = "OuterParkMoveFoundationBlue", group = "Blue")
 public class OuterParkMoveFoundationBlue extends LinearOpMode {
 
     public static double distance = 22;

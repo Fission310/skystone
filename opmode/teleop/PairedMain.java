@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Switch;
 
-@TeleOp(name="PairedMain", group="Teleop")
+@TeleOp(name="PairedMain", group="Camera")
 public class PairedMain extends LinearOpMode {
 
     double leftInput1, rightInput1, slideInput1, leftInput2, rightInput2, slideInput2;

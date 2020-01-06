@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 
 
 //@Config
-@Autonomous(name = "MoveFoundationBlue")
+@Autonomous(name = "MoveFoundationBlue", group = "Blue")
 public class MoveFoundationBlue extends LinearOpMode {
 
 

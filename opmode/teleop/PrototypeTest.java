@@ -11,7 +11,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @Config
-@TeleOp(name="PrototypeTest", group="Teleop")
+@TeleOp(name="PrototypeTest", group="Test")
 public class PrototypeTest extends LinearOpMode {
     public static double leftAngle = 0;
     public static double rightAngle = 0;

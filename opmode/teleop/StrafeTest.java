@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Switch;
 
 @Config
-@TeleOp(name="StrafeTest", group="Teleop")
+@TeleOp(name="StrafeTest", group="Test")
 public class StrafeTest extends LinearOpMode {
     public static double p = 0.01;
     public static double i = 0;

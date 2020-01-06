@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Switch;
 
 @Config
-@TeleOp(name="SwitchTest", group="Teleop")
+@TeleOp(name="SwitchTest", group="Test")
 public class SwitchTest extends LinearOpMode {
     private Drivetrain drive = new Drivetrain(this);
     private Switch limitSwitch = new Switch(this);

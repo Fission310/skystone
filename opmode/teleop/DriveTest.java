@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 
-@TeleOp(name="Drive", group="Teleop")
+@TeleOp(name="Drive", group="Test")
 public class DriveTest extends LinearOpMode {
 
     double leftInput, rightInput, slideInput;
