@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Arm extends Mechanism {
 
     public Servo backArm;
+    public CRServo armRotate;
 
     public Arm() { }
 
@@ -15,6 +17,7 @@ public class Arm extends Mechanism {
 
     public void init(HardwareMap hwMap) {
         backArm = hwMap.servo.get("backArm");
+        armRotate = hwMap.crservo.get("armRotate");
         armUp();
     }
 

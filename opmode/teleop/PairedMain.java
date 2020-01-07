@@ -1,7 +1,11 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import android.graphics.Paint;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.hardware.Capstone;
 import org.firstinspires.ftc.teamcode.hardware.Platform;
 import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
@@ -20,6 +24,7 @@ public class PairedMain extends LinearOpMode {
     private Arm arm = new Arm (this);
     private Platform platform = new Platform (this);
     private Switch limitSwitch = new Switch (this);
+    private Capstone capstone = new Capstone(this);
     @Override
     public void runOpMode() throws InterruptedException {
 //        Initializing
@@ -28,6 +33,7 @@ public class PairedMain extends LinearOpMode {
         arm.init(hardwareMap);
         platform.init(hardwareMap);
         limitSwitch.init(hardwareMap);
+        capstone.init(hardwareMap);
 
         while(!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("Status", "Waiting in Init");
@@ -155,6 +161,13 @@ public class PairedMain extends LinearOpMode {
             }
             else if (gamepad2.b) {
                 platform.platformDown();
+            }
+
+            if(gamepad2.x){
+                capstone.capUp();
+            }
+            if(gamepad2.y){
+                capstone.capDown();
             }
 
 //            Random telemetry for testing purposes
