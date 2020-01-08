@@ -147,27 +147,46 @@ public class PairedMain extends LinearOpMode {
 
             }
 //            Miscellaneous arm and alignment servos
-//            Arm servo uses the up and down d pad
-//            Implementing incremental inputs later; for now using standard boolean
-            if (gamepad2.dpad_up) {
-                arm.armUp();
-            }
-            else if (gamepad2.dpad_down) {
-                arm.armDown();
-            }
 //            Platform servos use a and b (operate together, not independently)
-            if (gamepad2.a) {
+            if (gamepad1.a) {
                 platform.platformUp();
             }
-            else if (gamepad2.b) {
+            else if (gamepad1.b) {
                 platform.platformDown();
             }
 
-            if(gamepad2.x){
+            if(gamepad2.dpad_up){
                 capstone.capUp();
             }
-            if(gamepad2.y){
+            if(gamepad2.dpad_down){
                 capstone.capDown();
+            }
+
+            if(gamepad2.a){
+                arm.armDown();
+                arm.aquire();
+            }
+            if(gamepad2.b){
+                arm.armUp();
+                arm.unaquire();
+            }
+            if(gamepad2.y){
+                arm.aquire();
+            }
+            if(gamepad2.x){
+                arm.unaquire();
+            }
+            if(!gamepad2.x && !gamepad2.y && !gamepad2.a && !gamepad2.b){
+                arm.armPivot(0);
+            }
+
+            if(gamepad2.left_trigger != 0){
+                arm.armSet(arm.backArm.getPosition() + 0.01);
+
+            }
+            if(gamepad2.right_trigger != 0){
+                arm.armSet(arm.backArm.getPosition() - 0.01);
+
             }
 
 //            Random telemetry for testing purposes
