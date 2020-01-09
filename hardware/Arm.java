@@ -26,10 +26,16 @@ public class Arm extends Mechanism {
    }
 
    public void armDown() {
-        backArm.setPosition(0.15);
+        backArm.setPosition(0.1);
    }
+
+   public void aquire(){armRotate.setPower(1);}
+
+   public void unaquire(){armRotate.setPower(-1);}
 
    public void armSet(double angle) {
         backArm.setPosition(angle);
    }
+
+   public void armPivot(double power){armRotate.setPower(power);}
 }
