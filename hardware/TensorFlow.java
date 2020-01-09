@@ -29,9 +29,7 @@
 
 package org.firstinspires.ftc.teamcode.hardware;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -56,6 +54,8 @@ public class TensorFlow extends Mechanism{
     private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "Skystone";
+    public float location;
+    public float number;
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -115,7 +115,7 @@ public class TensorFlow extends Mechanism{
         int tfodMonitorViewId = hwMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hwMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        tfodParameters.minimumConfidence = 0.61;
+        tfodParameters.minimumConfidence = 0.82;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
     }
@@ -143,6 +143,7 @@ public class TensorFlow extends Mechanism{
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
             if (updatedRecognitions != null) {
                 opMode.telemetry.addData("# Object Detected", updatedRecognitions.size());
+                number = updatedRecognitions.size();
 
                 // step through the list of recognitions and display boundary info.
                 int i = 0;
@@ -150,9 +151,15 @@ public class TensorFlow extends Mechanism{
                     opMode.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                     opMode.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
                             recognition.getLeft(), recognition.getTop());
-                    opMode.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                            recognition.getRight(), recognition.getBottom());
-                    opMode.telemetry.addData("Boolean: ", recognition.getLabel().equals("Skystone"));
+                    if (recognition.getLabel().equals("Skystone")) {
+                        opMode.telemetry.addData("Boolean: ", recognition.getLabel().equals("Skystone"));
+                        location = recognition.getTop();
+                        opMode.telemetry.addData("Location: ", location);
+                        break;
+                    }
+                    else {
+                        location = 0;
+                    }
                 }
                 opMode.telemetry.update();
             }

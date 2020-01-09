@@ -78,63 +78,6 @@ public class TensorFlowTest extends LinearOpMode {
                 drive.teleDrive(r, robotAngle, rightX1);
             }
 
-//            Controller 2: Operator
-
-//            Moving the Lift
-//            Checks if right joystick is moved vertically
-            if (Math.abs(rightInput2) > 0.3) {
-//                Either scores or acquires depending on if up or down
-                if (rightInput2 > 0.3) {
-                    acquirer.scoring();
-                }
-                else if (rightInput2 < 0.3) {
-                    acquirer.acquiring();
-                }
-            }
-//            Individually controlling the linear slides and the acquirer
-            else {
-//                Making it so that the slides and acquirer can run at the same time
-//                Acquirer uses bumpers
-                if (gamepad2.right_bumper) {
-                    acquirer.acquirerUp();
-                }
-                else if (gamepad2.left_bumper) {
-                    acquirer.acquirerDown();
-                }
-                else {
-                    acquirer.acquirerOff();
-                }
-//                Linear slide uses the left joystick (same logic as right joystick)
-                if (Math.abs(leftInput2) > 0.1) {
-//                Raises or lowers depending on if up or down
-                    if (leftInput2 > 0.1) {
-                        acquirer.slidesUp();
-                    } else if (leftInput2 < 0.1) {
-                        acquirer.slidesDown();
-                    }
-                }
-                else {
-                    acquirer.slidesOff();
-                }
-
-            }
-//            Miscellaneous arm and alignment servos
-//            Arm servo uses the up and down d pad
-//            Implementing incremental inputs later; for now using standard boolean
-            if (gamepad2.dpad_up) {
-                arm.armUp();
-            }
-            else if (gamepad2.dpad_down) {
-                arm.armDown();
-            }
-//            Platform servos use a and b (operate together, not independently)
-            if (gamepad2.a) {
-                platform.platformUp();
-            }
-            else if (gamepad2.b) {
-                platform.platformDown();
-            }
-
 //            Random telemetry for testing purposes
 //            telemetry.addData("Driving", "");
             telemetry.update();

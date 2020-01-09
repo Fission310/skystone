@@ -82,7 +82,7 @@ public class Drivetrain extends Mechanism {
 
         pidRotate = new PIDController(0.005, 0.1, 0);
         pidDrive = new PIDController(0.02,0,0);
-        pidStrafe = new PIDController(0.01,0,0);
+        pidStrafe = new PIDController(0.03,0,0);
 
         // Set all motors to zero power
         setPower(0.0);
@@ -157,6 +157,12 @@ public class Drivetrain extends Mechanism {
 
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+        pidDrive.reset();
+        pidDrive.setSetpoint(0);
+        pidDrive.setOutputRange(0, power);
+        pidDrive.setInputRange(-90, 90);
+        pidDrive.enable();
+
         while(opMode.opModeIsActive() && frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()) {
             driveStraightPID(inches, set_power);
             varPower = set_power;
@@ -174,11 +180,6 @@ public class Drivetrain extends Mechanism {
     public void driveStraightPID(double inches, double power) {
         double leftSpeed = -power, rightSpeed = -power;
         // Set up parameters for driving in a straight line.
-        pidDrive.reset();
-        pidDrive.setSetpoint(0);
-        pidDrive.setOutputRange(0, power);
-        pidDrive.setInputRange(-90, 90);
-        pidDrive.enable();
         double corrections = pidDrive.performPID(getAngle());
         varCorr = corrections;
 

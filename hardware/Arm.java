@@ -26,7 +26,7 @@ public class Arm extends Mechanism {
    }
 
    public void armDown() {
-        backArm.setPosition(0.2);
+        backArm.setPosition(0.15);
    }
 
    public void armSet(double angle) {
