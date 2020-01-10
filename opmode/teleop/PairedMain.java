@@ -165,19 +165,29 @@ public class PairedMain extends LinearOpMode {
             if(gamepad2.a){
                 arm.armDown();
                 arm.aquire();
+                telemetry.addData("wheel", "a");
+                telemetry.update();
             }
             if(gamepad2.b){
                 arm.armUp();
                 arm.unaquire();
+                telemetry.addData("wheel", "b");
+                telemetry.update();
             }
             if(gamepad2.y){
                 arm.aquire();
+                telemetry.addData("wheel", "y");
+                telemetry.update();
             }
             if(gamepad2.x){
                 arm.unaquire();
+                telemetry.addData("wheel", "x");
+                telemetry.update();
             }
             if(!gamepad2.x && !gamepad2.y && !gamepad2.a && !gamepad2.b){
                 arm.armPivot(0);
+                telemetry.addData("wheel", "n/a");
+                telemetry.update();
             }
 
             if(gamepad2.left_trigger != 0){
