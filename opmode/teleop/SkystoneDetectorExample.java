@@ -14,10 +14,10 @@ import java.util.Locale;
 /*
  * Thanks to EasyOpenCV for the great API (and most of the example)
  *
- * Original Work Copright(c) 2019 OpenFTC Team
+ * Original Work Copyright(c) 2019 OpenFTC Team
  * Derived Work Copyright(c) 2019 DogeDevs
  */
-@TeleOp(name = "Skystone Detector OpMode", group="Camera")
+@TeleOp(name = "Skystone Detector OpMode", group="Camera    ")
 
 public class SkystoneDetectorExample extends LinearOpMode {
     private OpenCvCamera phoneCam;

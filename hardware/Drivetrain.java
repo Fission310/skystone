@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import org.firstinspires.ftc.teamcode.PIDController;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -20,7 +22,8 @@ import java.util.Map;
 
 public class Drivetrain extends Mechanism {
     private static final double     COUNTS_PER_MOTOR_REV    = 723.24;
-
+    public FtcDashboard dash;
+    public TelemetryPacket packet;
     /**
      * Drivetrain gear ratio (< 1.0 if geared up).
      */
@@ -80,9 +83,9 @@ public class Drivetrain extends Mechanism {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        pidRotate = new PIDController(0.005, 0.1, 0);
-        pidDrive = new PIDController(0.02,0,0);
-        pidStrafe = new PIDController(0.03,0,0);
+        pidRotate = new PIDController(0.005, 0.001, 0);
+        pidDrive = new PIDController(0.02,0.001,0);
+        pidStrafe = new PIDController(0.01  ,0.001,0);
 
         // Set all motors to zero power
         setPower(0.0);
@@ -100,7 +103,10 @@ public class Drivetrain extends Mechanism {
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
     }
-
+    public void setDash(FtcDashboard givenDash, TelemetryPacket givenPacket) {
+        dash = givenDash;
+        packet = givenPacket;
+    }
     private void setPower(double power) {
         setPower(power, power, power, power);
     }
@@ -162,9 +168,14 @@ public class Drivetrain extends Mechanism {
         pidDrive.setOutputRange(0, power);
         pidDrive.setInputRange(-90, 90);
         pidDrive.enable();
-
+        double corrections = pidDrive.performPID(getAngle());
+        varCorr = corrections;
         while(opMode.opModeIsActive() && frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()) {
-            driveStraightPID(inches, set_power);
+            if (Math.signum(inches) >= 0) {
+                setPower(set_power + corrections,  set_power - corrections, set_power + corrections, set_power - corrections);
+            } else if (Math.signum(inches) < 0){
+                setPower(set_power - corrections,  set_power + corrections, set_power - corrections, set_power + corrections);
+            }
             varPower = set_power;
             if (time.seconds() > 3) {
                 setPower(0.0);
@@ -175,20 +186,6 @@ public class Drivetrain extends Mechanism {
         setPower(0.0);
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
-    public void driveStraightPID(double inches, double power) {
-        double leftSpeed = -power, rightSpeed = -power;
-        // Set up parameters for driving in a straight line.
-        double corrections = pidDrive.performPID(getAngle());
-        varCorr = corrections;
-
-
-        if (Math.signum(inches) >= 0) {
-            setPower(leftSpeed + corrections,  rightSpeed - corrections, leftSpeed + corrections, rightSpeed - corrections);
-        } else if (Math.signum(inches) < 0){
-            setPower(leftSpeed - corrections,  rightSpeed + corrections, leftSpeed - corrections, rightSpeed + corrections);
-        }
     }
 
     public void strafePID(double power, double duration) {
@@ -207,15 +204,11 @@ public class Drivetrain extends Mechanism {
             double corrections = pidStrafe.performPID(getAngle());
             opMode.telemetry.addData("corrections",varCorr);
             opMode.telemetry.addData("getAngle", getAngle());
-//            if (Math.signum(power) >= 0){
                 setPower(power-corrections, -power + corrections, -power - corrections, power + corrections);
-//                setPower(setPower - corrections,  -setPower + corrections, -setPower - corrections, setPower + corrections);
-//            }
-//            else {
-//                setPower(power + corrections , -power - corrections , -power + corrections, power - corrections);
-//               setPower(-setPower + corrections,  setPower - corrections, setPower + corrections, -setPower - corrections);
-//            }
             varCorr = corrections;
+//            packet.put("Correction", varCorr);
+//            packet.put("getAngle", getAngle());
+//            dash.sendTelemetryPacket(packet);
             opMode.telemetry.update();
         }
 

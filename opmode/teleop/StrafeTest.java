@@ -23,6 +23,7 @@ public class StrafeTest extends LinearOpMode {
 
     public void runOpMode() {
         drive.init(hardwareMap);
+        drive.setDash(dashboard, packet);
         drive.pidStrafe.setPID(p,i,d);
         drive.pidRotate.setPID(p,i,d);
         limitSwitch.init(hardwareMap);
@@ -34,10 +35,13 @@ public class StrafeTest extends LinearOpMode {
         telemetry.addData("Switch:" , limitSwitch.isPressed());
         packet.put("Correction", drive.varCorr);
         while (opModeIsActive()) {
+
             if (gamepad1.a) {
+                drive.pidStrafe.setPID(p,i,d);
                 drive.strafePID(0.5, 1.5);
             }
             else if (gamepad1.b) {
+                drive.pidStrafe.setPID(p,i,d);
                 drive.strafePID(-0.5,1.5);
             }
             else if (gamepad1.x) {
