@@ -90,14 +90,18 @@ public class PairedMain extends LinearOpMode {
 //            Moving the Lift
 //            Checks if right joystick is moved vertically
             if (limitSwitch.isPressed()) {
-                if (leftInput2 > 0.1) {
+                if (leftInput2 > 0.2) {
                     acquirer.slidesUp();
                 }
-                else if (rightInput2 < 0.3) {
+                else if (rightInput2 > 0.3) {
+                    acquirer.scoring();
+                }
+                else if (rightInput2 < -0.3) {
                     acquirer.acquirerUp();
                 }
                 else {
                     acquirer.slidesOff();
+                    acquirer.acquirerOff();
                 }
             }
             else if (Math.abs(rightInput2) > 0.3) {
@@ -105,7 +109,7 @@ public class PairedMain extends LinearOpMode {
                 if (rightInput2 > 0.3) {
                     acquirer.scoring();
                 }
-                else if (rightInput2 < 0.3 && !limitSwitch.isPressed()) {
+                else if (rightInput2 < -0.3 && !limitSwitch.isPressed()) {
                     acquirer.acquiring();
                 }
             }
@@ -150,6 +154,7 @@ public class PairedMain extends LinearOpMode {
 //            Platform servos use a and b (operate together, not independently)
             if (gamepad1.a) {
                 platform.platformUp();
+
             }
             else if (gamepad1.b) {
                 platform.platformDown();
