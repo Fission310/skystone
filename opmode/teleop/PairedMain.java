@@ -18,7 +18,6 @@ public class PairedMain extends LinearOpMode {
     double leftInput1, rightInput1, slideInput1, leftInput2, rightInput2, slideInput2;
 //    Unused; fix later;
     double armPosition = 0.5;
-
     private Drivetrain drive = new Drivetrain(this);
     private Acquirer acquirer = new Acquirer(this);
     private Arm arm = new Arm (this);
@@ -76,10 +75,10 @@ public class PairedMain extends LinearOpMode {
                 drive.strafeRight();
                 }
             else if (gamepad1.dpad_up) {
-                drive.driveStraightPID(1,0.2);
+                drive.driveToPos(1,0.2);
             }
             else if (gamepad1.dpad_down){
-                drive.driveStraightPID(-1,0.2);
+                drive.driveToPos(-1,0.2);
             }
             else {
                 drive.teleDrive(r, robotAngle, rightX1);
@@ -169,30 +168,20 @@ public class PairedMain extends LinearOpMode {
 
             if(gamepad2.a){
                 arm.armDown();
-                arm.aquire();
-                telemetry.addData("wheel", "a");
-                telemetry.update();
+                arm.acquire();
             }
             if(gamepad2.b){
                 arm.armUp();
-                arm.unaquire();
-                telemetry.addData("wheel", "b");
-                telemetry.update();
+                arm.unacquire();
             }
             if(gamepad2.y){
-                arm.aquire();
-                telemetry.addData("wheel", "y");
-                telemetry.update();
+                arm.acquire();
             }
             if(gamepad2.x){
-                arm.unaquire();
-                telemetry.addData("wheel", "x");
-                telemetry.update();
+                arm.unacquire();
             }
             if(!gamepad2.x && !gamepad2.y && !gamepad2.a && !gamepad2.b){
                 arm.armPivot(0);
-                telemetry.addData("wheel", "n/a");
-                telemetry.update();
             }
 
             if(gamepad2.left_trigger != 0){
