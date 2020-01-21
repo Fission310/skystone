@@ -96,7 +96,7 @@ public class PairedMain extends LinearOpMode {
                     acquirer.scoring();
                 }
                 else if (rightInput2 < -0.3) {
-                    acquirer.acquirerUp();
+                    acquirer.acquiring();
                 }
                 else {
                     acquirer.slidesOff();
@@ -168,17 +168,17 @@ public class PairedMain extends LinearOpMode {
 
             if(gamepad2.a){
                 arm.armDown();
-                arm.acquire();
+                arm.aquire();
             }
             if(gamepad2.b){
                 arm.armUp();
-                arm.unacquire();
+                arm.unaquire();
             }
             if(gamepad2.y){
-                arm.acquire();
+                arm.aquire();
             }
             if(gamepad2.x){
-                arm.unacquire();
+                arm.unaquire();
             }
             if(!gamepad2.x && !gamepad2.y && !gamepad2.a && !gamepad2.b){
                 arm.armPivot(0);
