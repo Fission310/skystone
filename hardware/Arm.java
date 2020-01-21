@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Arm extends Mechanism {
 
     public Servo backArm;
-    public CRServo armRotate;
+    public Servo armRotate;
 
     public Arm() { }
 
@@ -17,7 +17,7 @@ public class Arm extends Mechanism {
 
     public void init(HardwareMap hwMap) {
         backArm = hwMap.servo.get("backArm");
-        armRotate = hwMap.crservo.get("armRotate");
+        armRotate = hwMap.servo.get("armRotate");
         armUp();
     }
 
@@ -29,13 +29,13 @@ public class Arm extends Mechanism {
         backArm.setPosition(0.1);
    }
 
-   public void aquire(){armRotate.setPower(3);}
+   public void open(){armRotate.setPosition(0);}
 
-   public void unaquire(){armRotate.setPower(-3);}
+   public void close(){armRotate.setPosition(-0.5);}
 
    public void armSet(double angle) {
         backArm.setPosition(angle);
    }
 
-   public void armPivot(double power){armRotate.setPower(power);}
+   public void armPivot(double angle){armRotate.setPosition(angle);}
 }
