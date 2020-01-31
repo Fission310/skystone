@@ -38,11 +38,12 @@ public class StrafeTest extends LinearOpMode {
 
             if (gamepad1.a) {
                 drive.pidStrafe.setPID(p,i,d);
-                drive.strafePID(0.5, 1.5);
+                drive.strafePID(0.4, 0.8);
+
             }
             else if (gamepad1.b) {
                 drive.pidStrafe.setPID(p,i,d);
-                drive.strafePID(-0.5,1.5);
+                drive.strafePID(-0.4,0.8);
             }
             else if (gamepad1.x) {
                 drive.turn(90, 0.5);

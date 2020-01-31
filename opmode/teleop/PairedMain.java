@@ -181,7 +181,7 @@ public class PairedMain extends LinearOpMode {
                 arm.open();
             }
             if(!gamepad2.x && !gamepad2.y && !gamepad2.a && !gamepad2.b){
-                arm.armPivot(0);
+                arm.gripSet(0);
             }
 
             if(gamepad2.left_trigger != 0){

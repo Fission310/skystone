@@ -84,8 +84,8 @@ public class Drivetrain extends Mechanism {
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         pidRotate = new PIDController(0.005, 0.001, 0);
-        pidDrive = new PIDController(0.02,0.001,0);
-        pidStrafe = new PIDController(0.01  ,0.001,0);
+        pidDrive = new PIDController(0.01,0,0);
+        pidStrafe = new PIDController(0.04  ,0,0);
 
         // Set all motors to zero power
         setPower(0.0);
@@ -204,7 +204,8 @@ public class Drivetrain extends Mechanism {
             double corrections = pidStrafe.performPID(getAngle());
             opMode.telemetry.addData("corrections",varCorr);
             opMode.telemetry.addData("getAngle", getAngle());
-                setPower(power-corrections, -power + corrections, -power - corrections, power + corrections);
+            setPower(power-corrections, -power + corrections, -power - corrections, power + corrections);
+//            teleDrive(power, 3* Math.PI/4, 0);
             varCorr = corrections;
 //            packet.put("Correction", varCorr);
 //            packet.put("getAngle", getAngle());
