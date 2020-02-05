@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.hardware.Switch;
 @Config
 @TeleOp(name="StrafeTest", group="Test")
 public class StrafeTest extends LinearOpMode {
-    public static double p = 0.01;
+    public static double p = 0.02;
     public static double i = 0;
     public static double d = 0;
 
@@ -26,6 +26,7 @@ public class StrafeTest extends LinearOpMode {
         drive.setDash(dashboard, packet);
         drive.pidStrafe.setPID(p,i,d);
         drive.pidRotate.setPID(p,i,d);
+        drive.pidDrive.setPID(p,i,d);
         limitSwitch.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -38,18 +39,24 @@ public class StrafeTest extends LinearOpMode {
 
             if (gamepad1.a) {
                 drive.pidStrafe.setPID(p,i,d);
-                drive.strafePID(0.4, 0.8);
+                drive.strafePID(0.7, 1);
 
             }
             else if (gamepad1.b) {
                 drive.pidStrafe.setPID(p,i,d);
-                drive.strafePID(-0.4,0.8);
+                drive.strafePID(-0.7,1);
             }
             else if (gamepad1.x) {
                 drive.turn(90, 0.5);
             }
             else if (gamepad1.y) {
                 drive.turn(-90,0.5);
+            }
+            else if (gamepad1.dpad_up) {
+                drive.driveToPos(20,1);
+            }
+            else if (gamepad1.dpad_down) {
+                drive.driveToPos(-20,1);
             }
             dashboard.sendTelemetryPacket(packet);
             telemetry.update();

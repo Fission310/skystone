@@ -37,11 +37,10 @@ public class CVTest extends LinearOpMode {
         }
 
         waitForStart();
-        drive.strafePID(-0.4,1.4);
-        drive.driveToPos(-17.5, 0.8);
+        drive.driveToPos(-13.5, 1);
         ElapsedTime time = new ElapsedTime();
         time.reset();
-        while (opModeIsActive() && time.seconds() < 2.5) {
+        while (opModeIsActive() && time.seconds() < 1.5) {
 //          telemetry.addData("location:", tensorflow.skystoneLocation());
             tensorflow.printTelemetry();
 
@@ -49,17 +48,17 @@ public class CVTest extends LinearOpMode {
 //            telemetry.addData("Driving", "");
             telemetry.update();
         }
-        if (tensorflow.location == 0 || tensorflow.location >= 800 ) {
+        if (tensorflow.location == 0 || tensorflow.location >= 1000 ) {
             telemetry.addData("IT'S RIGHT", "RIGHT");
-            drive.strafePID(-0.4,1.5);
+            drive.strafePID(-0.7,0.9);
             offset+=0.9;
         }
-        else if (tensorflow.location > 200) {
+        else if (tensorflow.location > 500) {
             telemetry.addData("IT'S MIDDLE", "MIDDLE");
-            drive.strafePID(-0.4,0.75);
+            drive.strafePID(-0.7,0.45);
             offset+=0.4;
         }
-        else if (tensorflow.location <= 200) {
+        else if (tensorflow.location <= 500) {
             telemetry.addData("IT'S LEFT,", "LEFT");
         }
 
@@ -68,31 +67,29 @@ public class CVTest extends LinearOpMode {
         telemetry.update();
         arm.armDown();
         arm.partial();
-        sleep(100);
-        drive.driveToPos(-10,0.8);
-        sleep(100);
+        drive.driveToPos(-14,1);
         arm.close();
-        sleep(350);
+        sleep(400);
         arm.armUp();
         sleep(200);
-        drive.driveToPos(10,0.8);
-        drive.strafePID(0.7,3.3+offset);
-        drive.driveToPos(-11,0.8);
+        drive.driveToPos(10,1);
+        drive.strafePID(0.7,2.2+offset);
+        drive.driveToPos(-11,1);
         arm.armDown();
         sleep(400);
         arm.open();
         sleep(500);
         arm.armUp();
-        sleep(300);
-        drive.driveToPos(10,0.8);
-        drive.strafePID(-0.7,4.5+offset);
+        drive.driveToPos(10,1);
+        drive.strafePID(-0.7,3+offset);
         arm.armDown();
         arm.partial();
-        sleep(400);
+        drive.driveToPos(-7,1);
         arm.close();
-        sleep(350);
+        sleep(400);
         arm.armUp();
-        sleep(200);
+        drive.driveToPos(7,1);
+        drive.strafePID(0.7, 3 + offset);
         tensorflow.deactivatetfod();
     }
 }

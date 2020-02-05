@@ -21,7 +21,7 @@ public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism 
         acquirerRight = hwMap.crservo.get("acquirerRight");
         acquirerSlides = hwMap.dcMotor.get("acquirerSlides");
         acquirerSlides.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        acquirerSlides.setDirection(DcMotor.Direction.FORWARD);
+        acquirerSlides.setDirection(DcMotor.Direction.REVERSE);
         acquirerSlides.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slidesOff();
         acquirerOff();

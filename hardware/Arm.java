@@ -19,15 +19,15 @@ public class Arm extends Mechanism {
         backArm = hwMap.servo.get("backArm");
         backGrip = hwMap.servo.get("armRotate");
         armUp();
-        open();
+        partial();
     }
 
    public void armUp() {
-        backArm.setPosition(0.75);
+        backArm.setPosition(0.6);
    }
 
    public void armDown() {
-        backArm.setPosition(0.3);
+        backArm.setPosition(0.2);
    }
 
    public void open(){backGrip.setPosition(0.06);}

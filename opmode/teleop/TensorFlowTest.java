@@ -38,7 +38,7 @@ public class TensorFlowTest extends LinearOpMode {
         }
 
         waitForStart();
-
+        tensorflow.zoom();
         while(opModeIsActive()) {
 //            telemetry.addData("location:", tensorflow.skystoneLocation());
             tensorflow.printTelemetry();
