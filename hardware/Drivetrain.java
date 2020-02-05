@@ -84,8 +84,8 @@ public class Drivetrain extends Mechanism {
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         pidRotate = new PIDController(0.005, 0.001, 0);
-        pidDrive = new PIDController(0.03,0.01,0);
-        pidStrafe = new PIDController(0.04  ,0,0);
+        pidDrive = new PIDController(0.01,0.005,0);
+        pidStrafe = new PIDController(0.02  ,0,0);
 
         // Set all motors to zero power
         setPower(0.0);
@@ -168,20 +168,20 @@ public class Drivetrain extends Mechanism {
         pidDrive.setOutputRange(0, power);
         pidDrive.setInputRange(-90, 90);
         pidDrive.enable();
-        double corrections = pidDrive.performPID(getAngle());
+        double corrections = 0;
         int i = 0;
         while(opMode.opModeIsActive() && frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()) {
+            corrections = pidDrive.performPID(getAngle());
             if (i < 7) {
                 i++;
                 set_power = power /6 * i;
             }
             if (Math.signum(inches) >= 0) {
                 setPower(set_power + corrections,  set_power - corrections, set_power + corrections, set_power - corrections);
-            } else if (Math.signum(inches) < 0){
-                setPower(set_power - corrections,  set_power + corrections, set_power - corrections, set_power + corrections);
+            } else if (Math.signum(inches) < 0) {
+                setPower(set_power - corrections, set_power + corrections, set_power - corrections, set_power + corrections);
                 i++;
             }
-            corrections = pidDrive.performPID(getAngle());
             varPower = set_power;
             varCorr = corrections;
         }
@@ -229,7 +229,7 @@ public class Drivetrain extends Mechanism {
         frontLeft.setPower(0);
         backRight.setPower(0);
         backLeft.setPower(0);
-        frontRight.setPower(0   );
+        frontRight.setPower(0);
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }

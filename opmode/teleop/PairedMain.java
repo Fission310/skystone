@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Switch;
+import org.firstinspires.ftc.teamcode.hardware.Park;
+
 
 @TeleOp(name="PairedMain", group="Camera")
 public class PairedMain extends LinearOpMode {
@@ -24,6 +26,7 @@ public class PairedMain extends LinearOpMode {
     private Platform platform = new Platform (this);
     private Switch limitSwitch = new Switch (this);
     private Capstone capstone = new Capstone(this);
+    private Park parker = new Park(this);
     @Override
     public void runOpMode() throws InterruptedException {
 //        Initializing
@@ -33,6 +36,7 @@ public class PairedMain extends LinearOpMode {
         platform.init(hardwareMap);
         limitSwitch.init(hardwareMap);
         capstone.init(hardwareMap);
+        parker.init(hardwareMap);
 
         while(!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("Status", "Waiting in Init");
@@ -151,38 +155,24 @@ public class PairedMain extends LinearOpMode {
             }
 //            Miscellaneous arm and alignment servos
 //            Platform servos use a and b (operate together, not independently)
-            if (gamepad1.a) {
-                platform.platformUp();
+            if (gamepad1.a) platform.platformUp();
+            else if (gamepad1.b) platform.platformDown();
 
-            }
-            else if (gamepad1.b) {
-                platform.platformDown();
-            }
+            if(gamepad2.dpad_up)capstone.capUp();
+            else  if(gamepad2.dpad_down) capstone.capDown();
 
-            if(gamepad2.dpad_up){
-                capstone.capUp();
-            }
-            if(gamepad2.dpad_down){
-                capstone.capDown();
-            }
+            if(gamepad2.dpad_right) parker.extend();
+            else if (gamepad2.dpad_left) parker.retract();
+            else parker.stop();
 
             if(gamepad2.a){
                 arm.armDown();
                 arm.close();
             }
-            if(gamepad2.b){
-                arm.armUp();
-                arm.open();
-            }
-            if(gamepad2.y){
-                arm.close();
-            }
-            if(gamepad2.x){
-                arm.open();
-            }
-            if(!gamepad2.x && !gamepad2.y && !gamepad2.a && !gamepad2.b){
-                arm.gripSet(0);
-            }
+            else if(gamepad2.b)arm.armUp();
+
+            if(gamepad2.y)arm.close();
+            else if(gamepad2.x) arm.open();
 
             if(gamepad2.left_trigger != 0){
                 arm.armSet(arm.backArm.getPosition() + 0.01);

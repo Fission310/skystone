@@ -26,12 +26,12 @@ public class GripTest extends LinearOpMode {
             if (gamepad1.dpad_up) {
                 toSet += 0.001;
 
-                arm.armSet(toSet);
+                arm.gripSet(toSet);
 
             }
             if (gamepad1.dpad_down) {
                 toSet -= 0.001;
-                arm.armSet(toSet);
+                arm.gripSet(toSet);
 
             }
 
