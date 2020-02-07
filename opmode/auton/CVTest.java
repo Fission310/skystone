@@ -37,7 +37,7 @@ public class CVTest extends LinearOpMode {
         }
 
         waitForStart();
-        drive.driveToPos(-14, 1);
+        drive.driveToPos(-13.7, 0.8);
         ElapsedTime time = new ElapsedTime();
         time.reset();
         while (opModeIsActive() && time.seconds() < 1.5) {
@@ -69,27 +69,33 @@ public class CVTest extends LinearOpMode {
         arm.partial();
         drive.driveToPos(-13.5,1);
         arm.close();
-        sleep(500);
+        sleep(600);
         arm.armUp();
         sleep(200);
-        drive.driveToPos(8,1);
-        drive.strafePID(0.7,2.4+offset);
-        drive.driveToPos(-10,1);
+        drive.driveToPos(6,1);
+        drive.strafePID(0.7,2.6+offset);
+        drive.driveToPos(-8,1);
         arm.armDown();
         sleep(400);
         arm.open();
         sleep(500);
         arm.armUp();
-        drive.driveToPos(10,1);
-        drive.strafePID(-0.7,3.3+offset);
+        drive.driveToPos(8,1);
+        drive.strafePID(-0.7,3.5+offset);
         arm.armDown();
         arm.partial();
-        drive.driveToPos(-7,1);
+        drive.driveToPos(-5,1);
         arm.close();
-        sleep(400);
+        sleep(600);
         arm.armUp();
-        drive.driveToPos(7,1);
-        drive.strafePID(0.7, 3.1 + offset);
+        drive.driveToPos(5,1);
+        drive.strafePID(0.7, 3.5 + offset);
+        drive.driveToPos(-5,1);
+        arm.armDown();
+        sleep(400);
+        arm.open();
+        sleep(500);
+        arm.armUp();
         tensorflow.deactivatetfod();
     }
 }

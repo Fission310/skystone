@@ -27,7 +27,7 @@ public class Arm extends Mechanism {
    }
 
    public void armDown() {
-        backArm.setPosition(0.23);
+        backArm.setPosition(0.25);
    }
 
    public void open(){backGrip.setPosition(0.06);}

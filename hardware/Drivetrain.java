@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Drivetrain extends Mechanism {
-    private static final double     COUNTS_PER_MOTOR_REV    = 723.24;
+    private static final double     COUNTS_PER_MOTOR_REV    = 723;
     public FtcDashboard dash;
     public TelemetryPacket packet;
     /**
@@ -72,10 +72,10 @@ public class Drivetrain extends Mechanism {
         backRight = hwMap.dcMotor.get("backRight");
 
         //Set motor direction (AndyMark configuration)
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
-        backRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Set motor brake behavior
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -84,7 +84,7 @@ public class Drivetrain extends Mechanism {
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         pidRotate = new PIDController(0.005, 0.001, 0);
-        pidDrive = new PIDController(0.01,0.005,0);
+        pidDrive = new PIDController(0.05,0.005,0);
         pidStrafe = new PIDController(0.02  ,0,0);
 
         // Set all motors to zero power
@@ -154,14 +154,15 @@ public class Drivetrain extends Mechanism {
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         int tickCount = (int) (inches * COUNTS_PER_INCH);
-        double set_power = power * inches/Math.abs(inches);
-
+        double set_power = power * Math.signum(inches);
         frontLeft.setTargetPosition(tickCount);
         frontRight.setTargetPosition(tickCount);
         backLeft.setTargetPosition(tickCount);
         backRight.setTargetPosition(tickCount);
 
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        double leftTarget = tickCount + (frontLeft.getCurrentPosition() + backLeft.getCurrentPosition())/2.0;
+        double rightTarget = tickCount + (frontRight.getCurrentPosition() + backRight.getCurrentPosition()) / 2.0;
 
         pidDrive.reset();
         pidDrive.setSetpoint(0);
@@ -170,18 +171,25 @@ public class Drivetrain extends Mechanism {
         pidDrive.enable();
         double corrections = 0;
         int i = 0;
-        while(opMode.opModeIsActive() && frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()) {
+        while(opMode.opModeIsActive() && (Math.abs(frontLeft.getCurrentPosition() + backLeft.getCurrentPosition())/2.0 + 25 < Math.abs(leftTarget))
+                                      && (Math.abs(frontRight.getCurrentPosition() + backRight.getCurrentPosition())/2.0  + 25< Math.abs(rightTarget))){
             corrections = pidDrive.performPID(getAngle());
-            if (i < 7) {
+            if (i < 5) {
                 i++;
-                set_power = power /6 * i;
+                set_power = power /4 * i;
             }
+            opMode.telemetry.addData("left",Math.abs(frontLeft.getCurrentPosition() + Math.abs(backLeft.getCurrentPosition()))/2.0);
+            opMode.telemetry.addData("right",Math.abs(frontRight.getCurrentPosition() + Math.abs(backRight.getCurrentPosition()))/2.0);
+            opMode.telemetry.addData("ltarget", leftTarget);
+            opMode.telemetry.addData("rtarget", rightTarget);
+            opMode.telemetry.update();
             if (Math.signum(inches) >= 0) {
                 setPower(set_power + corrections,  set_power - corrections, set_power + corrections, set_power - corrections);
             } else if (Math.signum(inches) < 0) {
                 setPower(set_power - corrections, set_power + corrections, set_power - corrections, set_power + corrections);
                 i++;
             }
+
             varPower = set_power;
             varCorr = corrections;
         }
@@ -209,9 +217,9 @@ public class Drivetrain extends Mechanism {
             double corrections = pidStrafe.performPID(getAngle());
             opMode.telemetry.addData("corrections",varCorr);
             opMode.telemetry.addData("getAngle", getAngle());
-            if (i < 7) {
+            if (i < 5) {
                 i++;
-                rampPower = power /6 * i;
+                rampPower = power /4 * i;
             }
             frontLeft.setPower(rampPower - corrections);
             backRight.setPower(rampPower + corrections);
@@ -277,14 +285,10 @@ public class Drivetrain extends Mechanism {
      * Rotate left or right the number of degrees. Does not support turning more than 180 degrees.
      * @param degrees Degrees to turn, + is left - is right
      */
-    public void turn(int degrees, double power) {
-       turn (degrees,power, 0.02, 0, 0);
-    }
 
-    public void turn(int degrees, double power, double p, double i, double d) {
+    public void turn(int degrees, double power) {
         // restart imu angle tracking.
         resetAngle();
-        pidRotate.setPID(p, i, d);
         pidRotate.reset();
         pidRotate.setSetpoint(degrees);
         pidRotate.setInputRange(0, degrees);

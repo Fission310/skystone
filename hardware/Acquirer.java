@@ -21,7 +21,7 @@ public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism 
         acquirerRight = hwMap.crservo.get("acquirerRight");
         acquirerSlides = hwMap.dcMotor.get("acquirerSlides");
         acquirerSlides.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        acquirerSlides.setDirection(DcMotor.Direction.REVERSE);
+        acquirerSlides.setDirection(DcMotor.Direction.FORWARD);
         acquirerSlides.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slidesOff();
         acquirerOff();
@@ -65,11 +65,11 @@ public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism 
 
     public void scoring() {
         slidesSet(-0.6);
-        acquirerSet(0.6);
+        acquirerSet(-0.6);
     }
 
     public void acquiring () {
         slidesSet(0.6);
-        acquirerSet(-0.6);
+        acquirerSet(0.6);
     }
 }

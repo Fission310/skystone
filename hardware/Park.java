@@ -16,7 +16,7 @@ public class Park extends Mechanism {
 
     public void init(HardwareMap hwMap){
         tapeExtend = hwMap.dcMotor.get("tapeExtend");
-        tapeExtend.setDirection(DcMotorSimple.Direction.FORWARD);
+        tapeExtend.setDirection(DcMotorSimple.Direction.REVERSE);
         tapeExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
