@@ -89,7 +89,7 @@ public class Drivetrain extends Mechanism {
         ((DcMotorEx)frontLeft).setTargetPositionTolerance(20);
         ((DcMotorEx)frontLeft).setTargetPositionTolerance(20);
         pidRotate = new PIDController(0.008, 0.00008, 0);
-        pidDrive = new PIDController(0.08,0,0);
+        pidDrive = new PIDController(0.04,0,0);
         pidStrafe = new PIDController(0.02  ,0,0);
 
         // Set all motors to zero power

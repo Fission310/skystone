@@ -79,14 +79,18 @@ public class CVTest extends LinearOpMode {
 
         //Strafe and place
         drive.driveToPos(6.5,0.8);
-        drive.strafePID(0.7,3.3+offsetStrafe);
-        arm.armDown();
-        sleep(100);
+        drive.strafePID(0.9,3.0+offsetStrafe);
         arm.open();
+        arm.armDown();
         sleep(300);
-        arm.armPull();
-        drive.driveToPos(30, 0.5);
+        drive.strafePID(-0.9,3.5 + offsetStrafe);
+        arm.armDown();
+        arm.partial();
+        drive.driveToPos(-13.5,0.8);
+        arm.close();
+        sleep(600);
         arm.armUp();
+        sleep(200);
 
         //Turn and pull
 
