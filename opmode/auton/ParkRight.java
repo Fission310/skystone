@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.hardware.Platform;
 
 
 //@Config
-@Autonomous(name = "ParkRight")
+@Autonomous(name = "ParkRight", group = "Blue")
 public class ParkRight extends LinearOpMode {
 
     Drivetrain drive = new Drivetrain(this);

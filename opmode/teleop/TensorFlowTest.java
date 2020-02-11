@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.hardware.TensorFlow;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Platform;
 
-@TeleOp(name="TensorFlowTest", group="Camera")
+@TeleOp(name="TensorFlowTest", group="Test")
 public class TensorFlowTest extends LinearOpMode {
 
     double leftInput1, rightInput1, slideInput1, leftInput2, rightInput2, slideInput2;

@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.hardware.Switch;
 import org.firstinspires.ftc.teamcode.hardware.Park;
 
 
-@TeleOp(name="PairedMain", group="Camera")
+@TeleOp(name="PairedMain", group="Main")
 public class PairedMain extends LinearOpMode {
 
     double leftInput1, rightInput1, slideInput1, leftInput2, rightInput2, slideInput2;

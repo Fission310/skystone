@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.opmode.auton;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Platform;
 import org.firstinspires.ftc.teamcode.hardware.TensorFlow;
 
-@Autonomous(name="CVTest", group="Test")
-public class CVTest extends LinearOpMode {
+@Autonomous(name="TwoSkystone", group="Blue")
+public class TwoSkystone extends LinearOpMode {
 
     private Drivetrain drive = new Drivetrain(this);
     private Acquirer acquirer = new Acquirer(this);
@@ -71,25 +71,45 @@ public class CVTest extends LinearOpMode {
         //Get block
         arm.armDown();
         arm.partial();
-        drive.driveToPos(-13.5,0.8);
+        drive.driveToPos(-13.5,1);
         arm.close();
         sleep(600);
         arm.armUp();
         sleep(200);
 
         //Strafe and place
-        drive.driveToPos(6.5,0.8);
-        drive.strafePID(0.7,3.3+offsetStrafe);
+        drive.driveToPos(6,1);
+        drive.strafePID(0.7,2.9+offsetStrafe);
+        drive.driveToPos(-9.5,1);
         arm.armDown();
-        sleep(100);
-        arm.open();
-        sleep(300);
-        arm.armPull();
-        drive.driveToPos(30, 0.5);
+        sleep(400);
+        arm.partial();
+        sleep(500);
         arm.armUp();
+        drive.driveToPos(3.5, 1);
 
         //Turn and pull
+        drive.turn(-165,0.7);
+        drive.driveToPos(7,1);
+        platform.platformDown();
+        drive.driveToPos(-20,1);
 
+//        drive.driveToPos(8,1);
+//        drive.strafePID(-0.7,3.4+offset);
+//        arm.armDown();
+//        arm.partial();
+//        drive.driveToPos(-5,1);
+//        arm.close();
+//        sleep(600);
+//        arm.armUp();
+//        drive.driveToPos(5,1);
+//        drive.strafePID(0.7, 3.5 + offset);
+//        drive.driveToPos(-5,1);
+//        arm.armDown();
+//        sleep(400);
+//        arm.open();
+//        sleep(500);
+//        arm.armUp();
         tensorflow.deactivatetfod();
     }
 }

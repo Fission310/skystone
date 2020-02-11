@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Platform;
 
 //@Config
-@Autonomous(name = "StoneRed")
+@Autonomous(name = "StoneRed", group = "Red")
 
 public class StoneRed extends LinearOpMode{
 

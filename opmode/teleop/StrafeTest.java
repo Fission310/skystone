@@ -47,10 +47,10 @@ public class StrafeTest extends LinearOpMode {
                 drive.strafePID(-0.7,1);
             }
             else if (gamepad1.x) {
-                drive.turn(90, 0.5);
+                drive.turn(90, 0.7);
             }
             else if (gamepad1.y) {
-                drive.turn(-90,0.5);
+                drive.turn(-90,0.7);
             }
             else if (gamepad1.dpad_up) {
                 drive.driveToPos(20,1);

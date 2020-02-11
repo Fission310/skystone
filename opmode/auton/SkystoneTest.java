@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.hardware.Camera;
 
 
 //@Config
-@Autonomous(name = "Skystone Test")
+@Autonomous(name = "Skystone Test", group = "test")
 public class SkystoneTest extends LinearOpMode {
 
     public static double distance = 22;

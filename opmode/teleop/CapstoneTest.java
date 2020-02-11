@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.hardware.Capstone;
 
 @Config
-@TeleOp(name = "Capstone" , group = "Teleop")
+@TeleOp(name = "Capstone" , group = "Test")
 public class CapstoneTest extends LinearOpMode {
 
     public Capstone capstone= new Capstone(this);
