@@ -178,7 +178,7 @@ public class Drivetrain extends Mechanism {
                 targetPower = power * Math.signum(inches) /5.0 * i;
             }
             if (Math.signum(inches) >= 0) {
-                setPower(targetPower + corrections,  targetPower - corrections, targetPower + corrections, targetPower - corrections);
+                setPower(targetPower - corrections,  targetPower + corrections, targetPower - corrections, targetPower + corrections);
             } else if (Math.signum(inches) < 0) {
                 setPower(targetPower - corrections, targetPower + corrections, targetPower - corrections, targetPower + corrections);
             }
@@ -193,6 +193,7 @@ public class Drivetrain extends Mechanism {
         }
 
         setPower(0.0);
+        setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 

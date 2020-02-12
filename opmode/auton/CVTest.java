@@ -42,7 +42,7 @@ public class CVTest extends LinearOpMode {
         drive.driveToPos(-13.7, 0.8);
         ElapsedTime time = new ElapsedTime();
         time.reset();
-        while (opModeIsActive() && time.seconds() < 1.5) {
+        while (opModeIsActive() && time.seconds() < 2) {
 //          telemetry.addData("location:", tensorflow.skystoneLocation());
             tensorflow.printTelemetry();
 
@@ -76,21 +76,34 @@ public class CVTest extends LinearOpMode {
         sleep(600);
         arm.armUp();
         sleep(200);
-
         //Strafe and place
-        drive.driveToPos(6.5,0.8);
+        drive.driveToPos(6,0.8);
         drive.strafePID(0.9,3.0+offsetStrafe);
         arm.open();
         arm.armDown();
         sleep(300);
-        drive.strafePID(-0.9,3.5 + offsetStrafe);
-        arm.armDown();
-        arm.partial();
-        drive.driveToPos(-13.5,0.8);
-        arm.close();
-        sleep(600);
         arm.armUp();
-        sleep(200);
+        drive.driveToPos(4,0.8);
+        drive.turn(170,0.5);
+        drive.strafePID(-0.9, 1);
+        drive.strafePID(0.9,0.6);
+        drive.driveToPos(11,0.8);
+        platform.platformDown();
+        drive.driveToPos(-20,0.9);
+        drive.turn(90,0.8);
+
+
+        sleep(300);
+
+//        drive.driveToPos(3,0.8);
+//        drive.strafePID(-0.9,3.5 + offsetStrafe);
+//        arm.armDown();
+//        arm.partial();
+//        drive.driveToPos(-6,0.8);
+//        arm.close();
+//        sleep(600);
+//        arm.armUp();
+//        sleep(200);
 
         //Turn and pull
 
