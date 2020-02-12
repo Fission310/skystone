@@ -85,11 +85,11 @@ public class Drivetrain extends Mechanism {
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         ((DcMotorEx)frontLeft).setTargetPositionTolerance(20);
-        ((DcMotorEx)frontLeft).setTargetPositionTolerance(20);
-        ((DcMotorEx)frontLeft).setTargetPositionTolerance(20);
-        ((DcMotorEx)frontLeft).setTargetPositionTolerance(20);
+        ((DcMotorEx)backLeft).setTargetPositionTolerance(20);
+        ((DcMotorEx)backRight).setTargetPositionTolerance(20);
+        ((DcMotorEx)frontRight).setTargetPositionTolerance(20);
         pidRotate = new PIDController(0.008, 0.00008, 0);
-        pidDrive = new PIDController(0.04,0,0);
+        pidDrive = new PIDController(0.02,0,0);
         pidStrafe = new PIDController(0.02  ,0,0);
 
         // Set all motors to zero power
@@ -295,7 +295,7 @@ public class Drivetrain extends Mechanism {
         if (degrees < 0) {
 //             Get it stuck off 0 degrees
             while (opMode.opModeIsActive() && getAngle() == 0) {
-                setPower(power, -power, power, -power);
+                setPower(-power, power, -power, power);
 //                 Make sure it moves a little bit
                 opMode.sleep(100);
             }

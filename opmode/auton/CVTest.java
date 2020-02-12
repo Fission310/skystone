@@ -31,7 +31,7 @@ public class CVTest extends LinearOpMode {
         platform.init(hardwareMap);
         tensorflow.initVuforia();
         tensorflow.init(hardwareMap);
-        FtcDashboard.getInstance().startCameraStream(tensorflow.vuforia, 0);
+//        FtcDashboard.getInstance().startCameraStream(tensorflow.vuforia, 0);
         acquirer.slidesOff();
         while (!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("Status", "Waiting in Init");
@@ -71,25 +71,32 @@ public class CVTest extends LinearOpMode {
         //Get block
         arm.armDown();
         arm.partial();
-        drive.driveToPos(-13.5,0.8);
+        drive.driveToPos(-13.25,0.8);
         arm.close();
         sleep(600);
         arm.armUp();
         sleep(200);
+
         //Strafe and place
-        drive.driveToPos(6,0.8);
+        drive.driveToPos(6.5,0.8);
         drive.strafePID(0.9,3.0+offsetStrafe);
+        sleep(300);
+        drive.driveToPos(-9, 0.8);
         arm.open();
         arm.armDown();
         sleep(300);
         arm.armUp();
-        drive.driveToPos(4,0.8);
+        drive.driveToPos(6,0.8);
         drive.turn(170,0.5);
+
+        //Drag foundation
         drive.strafePID(-0.9, 1);
-        drive.strafePID(0.9,0.6);
-        drive.driveToPos(11,0.8);
+        drive.strafePID(0.9,0.9);
+        drive.driveToPos(14,0.8);
+        sleep(500);
         platform.platformDown();
-        drive.driveToPos(-20,0.9);
+        sleep(300);
+        drive.driveToPos(-15,0.9);
         drive.turn(90,0.8);
 
 
