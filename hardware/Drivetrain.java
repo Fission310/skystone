@@ -89,8 +89,8 @@ public class Drivetrain extends Mechanism {
         ((DcMotorEx)backRight).setTargetPositionTolerance(20);
         ((DcMotorEx)frontRight).setTargetPositionTolerance(20);
         pidRotate = new PIDController(0.008, 0.00008, 0);
-        pidDrive = new PIDController(0.02,0,0);
-        pidStrafe = new PIDController(0.02  ,0,0);
+        pidDrive = new PIDController(0.02,0.0002,0);
+        pidStrafe = new PIDController(0.04  ,0,0);
 
         // Set all motors to zero power
         setPower(0.0);
@@ -188,7 +188,9 @@ public class Drivetrain extends Mechanism {
 //            packet.put("Correction", varCorr);
 //            packet.put("getAngle", getAngle());
 //            dash.sendTelemetryPacket(packet);
-            opMode.telemetry.addData("power", targetPower);
+            opMode.telemetry.addData("Power: ", targetPower);
+            opMode.telemetry.addData("Angle: ", getAngle());
+            opMode.telemetry.addData("Correction:", corrections);
             opMode.telemetry.update();
         }
 
@@ -208,7 +210,7 @@ public class Drivetrain extends Mechanism {
         pidStrafe.setInputRange(-90, 90);
         pidStrafe.enable();
 
-        double rampPower = 0.0;
+        double targetPower = 0.0;
         int i = 0;
         while(opMode.opModeIsActive() && (time.seconds() <= duration)) {
             double corrections = pidStrafe.performPID(getAngle());
@@ -216,15 +218,15 @@ public class Drivetrain extends Mechanism {
             opMode.telemetry.addData("getAngle", getAngle());
             if (i < 6) {
                 i++;
-                rampPower = power /6 * i;
+                targetPower = power /6 * i;
             }
-            frontLeft.setPower(rampPower - corrections);
-            backRight.setPower(rampPower + corrections);
-            backLeft.setPower(-rampPower - corrections);
-            frontRight.setPower(-rampPower + corrections);
-            opMode.telemetry.addData("Power", rampPower);
-//            teleDrive(power, 3* Math.PI/4, 0);
-            varCorr = corrections;
+            frontLeft.setPower(targetPower - corrections);
+            backRight.setPower(targetPower + corrections);
+            backLeft.setPower(-targetPower - corrections);
+            frontRight.setPower(-targetPower + corrections);
+            opMode.telemetry.addData("Power: ", targetPower);
+            opMode.telemetry.addData("Angle: ", getAngle());
+            opMode.telemetry.addData("Correction:", corrections);
 //            packet.put("Correction", varCorr);
 //            packet.put("getAngle", getAngle());
 //            dash.sendTelemetryPacket(packet);
