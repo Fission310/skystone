@@ -12,25 +12,25 @@ import org.firstinspires.ftc.teamcode.hardware.Platform;
 import org.firstinspires.ftc.teamcode.hardware.Switch;
 
 
-@TeleOp(name="NSPairedMain", group="Main")
-public class NSPairedMain extends LinearOpMode {
+@TeleOp(name="PairedMain", group="Main")
+public class Ferry extends LinearOpMode {
 
     double leftInput1, rightInput1, slideInput1, leftInput2, rightInput2, slideInput2;
 //    Unused; fix later;
     double armPosition = 0.5;
     private Drivetrain drive = new Drivetrain(this);
-    private Acquirer acquirer = new Acquirer(this);
     private Arm arm = new Arm (this);
     private Platform platform = new Platform (this);
+    private Switch limitSwitch = new Switch (this);
     private Capstone capstone = new Capstone(this);
     private Park parker = new Park(this);
     @Override
     public void runOpMode() throws InterruptedException {
 //        Initializing
-        acquirer.init(hardwareMap);
         drive.init(hardwareMap);
         arm.init(hardwareMap);
         platform.init(hardwareMap);
+        limitSwitch.init(hardwareMap);
         capstone.init(hardwareMap);
         parker.init(hardwareMap);
 
@@ -57,9 +57,9 @@ public class NSPairedMain extends LinearOpMode {
             r = Math.pow(r,3);
             leftInput2 = Math.pow(leftInput2, 3);
 //            Angle of the stick
-            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
+            double robotAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
 //            How far the right stick goes from side to side (turning)
-            double rightX1 = gamepad1.right_stick_x;
+            double rightX1 = -gamepad1.right_stick_x;
 
 //            Controller 1: Driver
 
@@ -84,57 +84,20 @@ public class NSPairedMain extends LinearOpMode {
 
 //            Controller 2: Operator
 
-//            Moving the Lift
-//            Checks if right joystick is moved vertically
-
-            if (Math.abs(rightInput2) > 0.3) {
-//                Either scores or acquires depending on if up or down
-                if (rightInput2 > 0.3) {
-                    acquirer.scoring();
-                }
-                else if (rightInput2 < -0.3) {
-                    acquirer.acquiring();
-                }
-            }
-//            Individually controlling the linear slides and the acquirer
-            else {
-//                Making it so that the slides and acquirer can run at the same time
-//                Acquirer uses bumpers
-                if (gamepad2.right_bumper) {
-                    acquirer.acquirerUp();
-                }
-                else if (gamepad2.left_bumper) {
-                    acquirer.acquirerDown();
-                }
-                else {
-                    acquirer.acquirerOff();
-                }
-//                Linear slide uses the left joystick (same logic as right joystick)
-                if (Math.abs(leftInput2) > 0.1) {
-                    if (slideInput2 > 0.3) {
-//                Raises or lowers depending on if up or down
-                        if (leftInput2 > 0.1) {
-                            acquirer.slidesDown();
-                        } else if (leftInput2 < -0.1 ) {
-                            acquirer.slidesUp();
-                        }
-                    }
-                    else {
-//                Raises or lowers depending on if up or down
-                        if (leftInput2 > 0.1) {
-                            acquirer.slidesUp();
-                        } else if (leftInput2 < -0.1 ) {
-                            acquirer.slidesDown();
-                        }
-                    }
-                }
-                else {
-                    acquirer.slidesOff();
-                }
-
-            }
 //            Miscellaneous arm and alignment servos
 //            Platform servos use a and b (operate together, not independently)
+            if (leftInput2 > 0.4) {
+                arm.armUp();
+            }
+            else if (leftInput2 < -0.4) {
+                arm.armDown();
+            }
+            if (rightInput2 > 0.4) {
+                arm.partial();
+            }
+            else if (rightInput2 < -0.4) {
+                arm.close();
+            }
             if (gamepad1.a) platform.platformUp();
             else if (gamepad1.b) platform.platformDown();
 
@@ -170,6 +133,7 @@ public class NSPairedMain extends LinearOpMode {
             telemetry.addData("rightx1", rightX1);
             telemetry.addData("leftx1", gamepad1.left_stick_x);
             telemetry.addData("lefty", leftInput2);
+            telemetry.addData("limitSwitch", limitSwitch.isPressed());
             telemetry.update();
         }
     }

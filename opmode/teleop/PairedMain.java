@@ -69,23 +69,18 @@ public class PairedMain extends LinearOpMode {
 
 //            Driving
 //            Precision mode if trigger is held, else left stick is vector driving and right stick is turning
-            if (slideInput1 > 0.3) {
-                drive.teleDrive(r/3, robotAngle, rightX1/3);
-            }
-            else if (slideInput1 < -0.3) {
-                drive.teleDrive(r/5, robotAngle, rightX1/5);
-            }
-            else if (gamepad1.dpad_left) {
+            if (gamepad1.dpad_left) {
                 drive.strafeLeft();
             }
             else if (gamepad1.dpad_right) {
                 drive.strafeRight();
-                }
-            else if (gamepad1.dpad_up) {
-                drive.driveToPos(1,0.2);
             }
-            else if (gamepad1.dpad_down){
-                drive.driveToPos(-1,0.2);
+            if (slideInput1 > 0.3) {
+                drive.teleDrive(r/2, robotAngle, rightX1/3);
+
+            }
+            else if (slideInput1 < -0.3) {
+                drive.teleDrive(r/4, robotAngle, rightX1/4);
             }
             else {
                 drive.teleDrive(r, robotAngle, rightX1);

@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.opmode.old;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+@Disabled
 @TeleOp(name="SingleMain", group="Teleop")
 public class SingleMain extends LinearOpMode {
 
@@ -83,6 +86,24 @@ public class SingleMain extends LinearOpMode {
             telemetry.addData("slide", slideInput);
             telemetry.addData("righttrigger", gamepad1.right_trigger);
             telemetry.update();
+        }
+    }
+
+    //@Config
+    @Autonomous(name = "ParkRight", group = "Blue")
+    public static class ParkRight extends LinearOpMode {
+
+        Drivetrain drive = new Drivetrain(this);
+
+        public void runOpMode() throws InterruptedException{
+            drive.init(hardwareMap);
+            telemetry.addData("Status", "Initialized");
+            telemetry.update();
+            waitForStart();
+            drive.driveToPos(10, 0.5);
+            sleep(500);
+            drive.strafeRight();
+            sleep(2800);
         }
     }
 }

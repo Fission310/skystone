@@ -6,10 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Platform;
 import org.firstinspires.ftc.teamcode.hardware.PrototypeAcquirer;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+@Disabled
 @Config
 @TeleOp(name="PrototypeTest", group="Test")
 public class PrototypeTest extends LinearOpMode {
