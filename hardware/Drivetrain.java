@@ -89,8 +89,8 @@ public class Drivetrain extends Mechanism {
         ((DcMotorEx)backRight).setTargetPositionTolerance(20);
         ((DcMotorEx)frontRight).setTargetPositionTolerance(20);
         pidRotate = new PIDController(0.008, 0.00008, 0);
-        pidDrive = new PIDController(0.02,0.0002,0);
-        pidStrafe = new PIDController(0.04  ,0,0);
+        pidDrive = new PIDController(0.02,0.002,0);
+        pidStrafe = new PIDController(0.03  ,0,0);
 
         // Set all motors to zero power
         setPower(0.0);
@@ -196,7 +196,7 @@ public class Drivetrain extends Mechanism {
 
         setPower(0.0);
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void strafePID(double power, double duration) {
@@ -216,10 +216,11 @@ public class Drivetrain extends Mechanism {
             double corrections = pidStrafe.performPID(getAngle());
             opMode.telemetry.addData("corrections",varCorr);
             opMode.telemetry.addData("getAngle", getAngle());
-            if (i < 6) {
-                i++;
-                targetPower = power /6 * i;
-            }
+//            if (i < 6) {
+//                i++;
+//                targetPower = power /6 * i;
+//            }
+            targetPower = power;
             frontLeft.setPower(targetPower - corrections);
             backRight.setPower(targetPower + corrections);
             backLeft.setPower(-targetPower - corrections);

@@ -1,75 +1,42 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism {
 
-    public CRServo acquirerLeft;
-    public CRServo acquirerRight;
-    public DcMotor acquirerSlides;
+    public DcMotor acquirerLeft;
+    public DcMotor acquirerRight;
 
     public Acquirer() { }
 
     public Acquirer(LinearOpMode opMode){ this.opMode = opMode; }
 
     public void init(HardwareMap hwMap) {
-        acquirerLeft = hwMap.crservo.get("acquirerLeft");
-        acquirerRight = hwMap.crservo.get("acquirerRight");
-        acquirerSlides = hwMap.dcMotor.get("acquirerSlides");
-        acquirerSlides.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        acquirerSlides.setDirection(DcMotor.Direction.FORWARD);
-        acquirerSlides.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        slidesOff();
-        acquirerOff();
+        acquirerLeft = hwMap.dcMotor.get("acquirerLeft");
+        acquirerRight = hwMap.dcMotor.get("acquirerRight");
+
+        acquirerLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        acquirerRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        // Set motor brake behavior
+        acquirerLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        acquirerRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        acquirerLeft.setMode();
     }
 
-    public void acquirerOff(){
-        acquirerLeft.setPower(0.0);
-        acquirerRight.setPower(0.0);
+    public void acquire() {
+        acquirerLeft.setPower();
     }
 
-    public void acquirerUp(){
-        acquirerLeft.setPower(1);
-        acquirerRight.setPower(-1);
+    public void unacquire() {
+
     }
 
-    public void acquirerDown() {
-        acquirerLeft.setPower(-1);
-        acquirerRight.setPower(1);
-    }
 
-    public void acquirerSet(double power) {
-        acquirerLeft.setPower(power);
-        acquirerRight.setPower(- power);
-    }
 
-    public void slidesUp() {
-        acquirerSlides.setPower(-1);
-    }
-
-    public void slidesDown() {
-        acquirerSlides.setPower(1);
-    }
-
-    public void slidesOff() {
-        acquirerSlides.setPower(0);
-    }
-
-    public void slidesSet(double power) {
-        acquirerSlides.setPower(power);
-    }
-
-    public void scoring() {
-        slidesSet(-0.6);
-        acquirerSet(-0.6);
-    }
-
-    public void acquiring () {
-        slidesSet(0.6);
-        acquirerSet(0.6);
-    }
 }

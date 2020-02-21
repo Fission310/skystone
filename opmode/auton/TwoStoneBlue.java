@@ -1,18 +1,18 @@
 package org.firstinspires.ftc.teamcode.opmode.auton;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.oldHardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
+import org.firstinspires.ftc.teamcode.hardware.Park;
 import org.firstinspires.ftc.teamcode.hardware.oldHardware.Platform;
 import org.firstinspires.ftc.teamcode.hardware.TensorFlow;
-import org.firstinspires.ftc.teamcode.hardware.Park;
 
-@Autonomous(name="OneStoneBlue", group="Blue")
-public class OneStoneBlue extends LinearOpMode {
+@Autonomous(name="TwoStoneBlue", group="Blue")
+public class TwoStoneBlue extends LinearOpMode {
 
     private Drivetrain drive = new Drivetrain(this);
     private Acquirer acquirer = new Acquirer(this);
@@ -54,13 +54,13 @@ public class OneStoneBlue extends LinearOpMode {
         }
         if (tensorflow.location == 0 || tensorflow.location >= 1000 ) {
             telemetry.addData("IT'S RIGHT", "RIGHT");
-            drive.strafePID(-0.9, 0.90);
-            offsetStrafe+=1.0;
+            drive.strafePID(-0.9,1.05);
+            offsetStrafe+=1.4;
         }
         else if (tensorflow.location > 450) {
             telemetry.addData("IT'S MIDDLE", "MIDDLE");
-            drive.strafePID(-0.9,0.52);
-            offsetStrafe+=0.7;
+            drive.strafePID(-0.9,0.6);
+            offsetStrafe+=0.95;
         }
         else if (tensorflow.location <= 450) {
             telemetry.addData("IT'S LEFT,", "LEFT");
@@ -80,10 +80,9 @@ public class OneStoneBlue extends LinearOpMode {
         sleep(200);
 
         //Strafe and place
-        drive.driveToPos(5,0.8);
-        drive.strafePID(0.9,3.4+offsetStrafe);
-        drive.strafePID(-0.9,0.65);
-        drive.driveToPos(-10, 0.8);
+        drive.driveToPos(6.5,0.8);
+        drive.strafePID(0.9,3.0+offsetStrafe);
+        drive.driveToPos(-9, 0.8);
         arm.partial();
         arm.armDown();
         sleep(300);
@@ -92,26 +91,24 @@ public class OneStoneBlue extends LinearOpMode {
         drive.turn(171,0.5);
 
         //Drag foundation
-        drive.driveToPos(9,0.8);
+        drive.driveToPos(10,0.8);
         platform.platformDown();
         sleep(200);
-        drive.driveToPos(-34,1);
+        drive.driveToPos(-36,1);
         drive.turn(95,0.9);
-        drive.driveToPos(6,0.9);
-        drive.strafePID(0.9,0.5);
         park.extend();
-        sleep(1500);
+        sleep(1000);
         park.stop();
 
-//        drive.driveToPos(3,0.8);
-//        drive.strafePID(-0.9,3.5 + offsetStrafe);
-//        arm.armDown();
-//        arm.partial();
-//        drive.driveToPos(-6,0.8);
-//        arm.close();
-//        sleep(600);
-//        arm.armUp();
-//        sleep(200);
+        drive.driveToPos(3,0.8);
+        drive.strafePID(-0.9,3.5 + offsetStrafe);
+        arm.armDown();
+        arm.partial();
+        drive.driveToPos(-6,0.8);
+        arm.close();
+        sleep(600);
+        arm.armUp();
+        sleep(200);
 
         //Turn and pull
         platform.platformUp();

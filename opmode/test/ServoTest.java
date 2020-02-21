@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.opmode.test;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import org.firstinspires.ftc.teamcode.hardware.Arm;
-import org.firstinspires.ftc.teamcode.hardware.Platform;
+import org.firstinspires.ftc.teamcode.hardware.oldHardware.Arm;
+import org.firstinspires.ftc.teamcode.hardware.oldHardware.Platform;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 

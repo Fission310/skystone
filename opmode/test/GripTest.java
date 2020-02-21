@@ -3,11 +3,10 @@ package org.firstinspires.ftc.teamcode.opmode.test;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.hardware.Arm;
+import org.firstinspires.ftc.teamcode.hardware.oldHardware.Arm;
 
-@Disabled
+//@Disabled
 @Config
 @TeleOp(name = "GripTest" , group = "Test")
 public class GripTest extends LinearOpMode {
@@ -22,18 +21,18 @@ public class GripTest extends LinearOpMode {
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        arm.gripSet(toSet);
+        arm.armSet(toSet);
         waitForStart();
         while (opModeIsActive()) {
             if (gamepad1.dpad_up) {
                 toSet += 0.001;
 
-                arm.gripSet(toSet);
+                arm.armSet(toSet);
 
             }
             if (gamepad1.dpad_down) {
                 toSet -= 0.001;
-                arm.gripSet(toSet);
+                arm.armSet(toSet);
 
             }
 

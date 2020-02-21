@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode.hardware;
+package org.firstinspires.ftc.teamcode.hardware.oldHardware;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.teamcode.hardware.Mechanism;
 
 
 public class Arm extends Mechanism {
@@ -18,7 +19,7 @@ public class Arm extends Mechanism {
     public void init(HardwareMap hwMap) {
         backArm = hwMap.servo.get("backArm");
         backGrip = hwMap.servo.get("armRotate");
-        armUp();
+        armSet(0.7);
         close();
     }
 
@@ -27,7 +28,7 @@ public class Arm extends Mechanism {
    }
 
    public void armDown() {
-        backArm.setPosition(0.25);
+        backArm.setPosition(0.3);
    }
    public void armPull() {backArm.setPosition(0.19);}
 
@@ -42,4 +43,31 @@ public class Arm extends Mechanism {
    }
 
    public void gripSet(double angle){backGrip.setPosition(angle);}
+
+    public static class Capstone extends Mechanism {
+
+        public Capstone(){}
+
+        public Capstone(LinearOpMode opMode){this.opMode = opMode;}
+
+        public Servo putCapstone;
+
+        public void init(HardwareMap hwMap) {
+            putCapstone = hwMap.servo.get("putCapstone");
+        }
+
+        public void capUp() {putCapstone.setPosition(0.55);}
+
+        public void capDown() {
+            putCapstone.setPosition(0.25);
+        }
+
+        public void capAngleSet(double angle) {
+            putCapstone.setPosition(angle);
+        }
+
+
+
+
+    }
 }

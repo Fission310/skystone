@@ -3,16 +3,14 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.hardware.Acquirer;
-import org.firstinspires.ftc.teamcode.hardware.Arm;
-import org.firstinspires.ftc.teamcode.hardware.Capstone;
+import org.firstinspires.ftc.teamcode.hardware.oldHardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Park;
-import org.firstinspires.ftc.teamcode.hardware.Platform;
-import org.firstinspires.ftc.teamcode.hardware.Switch;
+import org.firstinspires.ftc.teamcode.hardware.oldHardware.Platform;
+import org.firstinspires.ftc.teamcode.hardware.oldHardware.Switch;
 
 
-@TeleOp(name="PairedMain", group="Main")
+@TeleOp(name="Ferry", group="Main")
 public class Ferry extends LinearOpMode {
 
     double leftInput1, rightInput1, slideInput1, leftInput2, rightInput2, slideInput2;
@@ -22,7 +20,7 @@ public class Ferry extends LinearOpMode {
     private Arm arm = new Arm (this);
     private Platform platform = new Platform (this);
     private Switch limitSwitch = new Switch (this);
-    private Capstone capstone = new Capstone(this);
+    private Arm.Capstone capstone = new Arm.Capstone(this);
     private Park parker = new Park(this);
     @Override
     public void runOpMode() throws InterruptedException {
@@ -57,19 +55,19 @@ public class Ferry extends LinearOpMode {
             r = Math.pow(r,3);
             leftInput2 = Math.pow(leftInput2, 3);
 //            Angle of the stick
-            double robotAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
+            double robotAngle = Math.atan2(-gamepad1.left_stick_y, -gamepad1.left_stick_x) - Math.PI / 4;
 //            How far the right stick goes from side to side (turning)
-            double rightX1 = -gamepad1.right_stick_x;
+            double rightX1 = gamepad1.right_stick_x;
 
 //            Controller 1: Driver
 
 //            Driving
 //            Precision mode if trigger is held, else left stick is vector driving and right stick is turning
             if (gamepad1.dpad_left) {
-                drive.strafeLeft();
+                drive.strafeRight();
             }
             else if (gamepad1.dpad_right) {
-                drive.strafeRight();
+                drive.strafeLeft();
             }
             if (slideInput1 > 0.3) {
                 drive.teleDrive(r/2, robotAngle, rightX1/3);

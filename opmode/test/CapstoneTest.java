@@ -5,14 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.hardware.Capstone;
+import org.firstinspires.ftc.teamcode.hardware.oldHardware.Arm;
 
 @Disabled
 @Config
 @TeleOp(name = "Capstone" , group = "Test")
 public class CapstoneTest extends LinearOpMode {
 
-    public Capstone capstone= new Capstone(this);
+    public Arm.Capstone capstone= new Arm.Capstone(this);
 
     @Override
     public void runOpMode() throws InterruptedException{

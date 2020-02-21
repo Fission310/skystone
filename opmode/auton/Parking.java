@@ -18,7 +18,7 @@ public class Parking extends LinearOpMode {
         telemetry.update();
         waitForStart();
         park.extend();
-        sleep(500);
+        sleep(1000);
         park.stop();
 
     }

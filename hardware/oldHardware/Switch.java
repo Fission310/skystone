@@ -1,7 +1,10 @@
-package org.firstinspires.ftc.teamcode.hardware;
+package org.firstinspires.ftc.teamcode.hardware.oldHardware;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.teamcode.hardware.Mechanism;
+
 public class Switch extends Mechanism {
     private DigitalChannel limitSwitch;  // Hardware Device Object
 

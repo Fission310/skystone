@@ -1,16 +1,13 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
-import android.graphics.Paint;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.hardware.Capstone;
-import org.firstinspires.ftc.teamcode.hardware.Platform;
-import org.firstinspires.ftc.teamcode.hardware.Arm;
+import org.firstinspires.ftc.teamcode.hardware.oldHardware.Platform;
+import org.firstinspires.ftc.teamcode.hardware.oldHardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
-import org.firstinspires.ftc.teamcode.hardware.Switch;
+import org.firstinspires.ftc.teamcode.hardware.oldHardware.Switch;
 import org.firstinspires.ftc.teamcode.hardware.Park;
 
 
@@ -25,7 +22,7 @@ public class PairedMain extends LinearOpMode {
     private Arm arm = new Arm (this);
     private Platform platform = new Platform (this);
     private Switch limitSwitch = new Switch (this);
-    private Capstone capstone = new Capstone(this);
+    private Arm.Capstone capstone = new Arm.Capstone(this);
     private Park parker = new Park(this);
     @Override
     public void runOpMode() throws InterruptedException {

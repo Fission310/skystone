@@ -5,10 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
-import org.firstinspires.ftc.teamcode.hardware.Arm;
+import org.firstinspires.ftc.teamcode.hardware.oldHardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Park;
-import org.firstinspires.ftc.teamcode.hardware.Platform;
+import org.firstinspires.ftc.teamcode.hardware.oldHardware.Platform;
 import org.firstinspires.ftc.teamcode.hardware.TensorFlow;
 
 @Autonomous(name="OneStoneRed", group="Red")
@@ -54,14 +54,14 @@ public class OneStoneRed extends LinearOpMode {
         }
         if (tensorflow.location == 0) {
             telemetry.addData("IT'S LEFT,", "LEFT");
-            drive.strafePID(0.9,0.7);
-            offsetStrafe+=0.85;
+            drive.strafePID(0.9,0.5);
+            offsetStrafe+=1;
 
         }
         else if (tensorflow.location > 450) {
             telemetry.addData("IT'S RIGHT", "RIGHT");
-            drive.strafePID(-0.9,0.8);
-            offsetStrafe-=0.9;
+            drive.strafePID(-0.9,0.50);
+            offsetStrafe-=0.7;
         }
         else if (tensorflow.location <= 450) {
             telemetry.addData("IT'S MIDDLE", "MIDDLE");
@@ -81,24 +81,29 @@ public class OneStoneRed extends LinearOpMode {
         sleep(200);
 
         //Strafe and place
-        drive.driveToPos(6.5,0.8);
-        drive.strafePID(-0.9,3.1+offsetStrafe);
-        drive.driveToPos(-9, 0.8);
+        drive.driveToPos(9,0.8);
+        drive.strafePID(-0.9,3.5+offsetStrafe);
+        drive.strafePID(0.9, 0.63);
+        drive.driveToPos(-8, 0.8);
         arm.partial();
         arm.armDown();
         sleep(300);
         arm.armUp();
         drive.driveToPos(6,0.8);
-        drive.turn(165,0.5);
+        drive.turn(167,0.5);
 
         //Drag foundation
-        drive.driveToPos(12,0.8);
+        drive.driveToPos(9,0.8);
         platform.platformDown();
         sleep(200);
-        drive.driveToPos(-36,1);
-        drive.turn(-89,0.9);
+        drive.driveToPos(-34,1);
+        drive.turn(-87,0.9);
+        platform.platformUp();
+        drive.driveToPos(4,1);
+        drive.driveToPos(-9,0.9);
+        drive.strafePID(-0.9,0.3);
         park.extend();
-        sleep(1000);
+        sleep(1500);
         park.stop();
 
 //        drive.driveToPos(3,0.8);
@@ -112,7 +117,7 @@ public class OneStoneRed extends LinearOpMode {
 //        sleep(200);
 
         //Turn and pull
-        platform.platformUp();
+        arm.close();
         tensorflow.deactivatetfod();
     }
 }
