@@ -1,10 +1,10 @@
 # FTC Fission 310 2019-2020 SKYSTONE
 Managed by Jason Lam and Lucas Lee (more to come)
 ## Credits
-Thanks to ssysm for his improved TensorFlow detection model
-Also credits to Acme Robotics and their FTC dashboard
-https://github.com/ssysm/skystone-model
-https://github.com/acmerobotics/ftc-dashboard
+* Thanks to ssysm for his improved TensorFlow detection model
+* Also credits to Acme Robotics and their FTC dashboard
+* https://github.com/ssysm/skystone-model
+* https://github.com/acmerobotics/ftc-dashboard
 ## Setting up your coding environment 
 - Download Java 8 by following these [instructions](https://dojo.stuycs.org/resources/software_installation_and_tips/installation_instructions/programming_languages/installing_jdk.html)
 - Create a GitHub account
