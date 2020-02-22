@@ -32,7 +32,7 @@ public class TwoSkystone extends LinearOpMode {
         tensorflow.initVuforia();
         tensorflow.init(hardwareMap);
         FtcDashboard.getInstance().startCameraStream(tensorflow.vuforia, 0);
-        acquirer.slidesOff();
+//        acquirer.slidesOff();
         while (!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("Status", "Waiting in Init");
             telemetry.update();

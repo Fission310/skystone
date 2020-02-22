@@ -5,14 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.hardware.Park;
+import org.firstinspires.ftc.teamcode.hardware.Tape;
 
 @Disabled
 @Config
 @TeleOp(name = "ParkTest" ,group = "Test")
 public class ParkTest extends LinearOpMode {
 
-    public Park parker= new Park(this);
+    public Tape parker= new Tape(this);
 
     @Override
     public void runOpMode(){

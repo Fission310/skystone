@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.oldHardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
-import org.firstinspires.ftc.teamcode.hardware.Park;
+import org.firstinspires.ftc.teamcode.hardware.Tape;
 import org.firstinspires.ftc.teamcode.hardware.oldHardware.Platform;
 
 
@@ -21,7 +21,7 @@ public class NSPairedMain extends LinearOpMode {
     private Arm arm = new Arm (this);
     private Platform platform = new Platform (this);
     private Arm.Capstone capstone = new Arm.Capstone(this);
-    private Park parker = new Park(this);
+    private Tape parker = new Tape(this);
     @Override
     public void runOpMode() throws InterruptedException {
 //        Initializing
@@ -85,52 +85,52 @@ public class NSPairedMain extends LinearOpMode {
 //            Moving the Lift
 //            Checks if right joystick is moved vertically
 
-            if (Math.abs(rightInput2) > 0.3) {
-//                Either scores or acquires depending on if up or down
-                if (rightInput2 > 0.3) {
-                    acquirer.scoring();
-                }
-                else if (rightInput2 < -0.3) {
-                    acquirer.acquiring();
-                }
-            }
-//            Individually controlling the linear slides and the acquirer
-            else {
-//                Making it so that the slides and acquirer can run at the same time
-//                Acquirer uses bumpers
-                if (gamepad2.right_bumper) {
-                    acquirer.acquirerUp();
-                }
-                else if (gamepad2.left_bumper) {
-                    acquirer.acquirerDown();
-                }
-                else {
-                    acquirer.acquirerOff();
-                }
-//                Linear slide uses the left joystick (same logic as right joystick)
-                if (Math.abs(leftInput2) > 0.1) {
-                    if (slideInput2 > 0.3) {
-//                Raises or lowers depending on if up or down
-                        if (leftInput2 > 0.1) {
-                            acquirer.slidesDown();
-                        } else if (leftInput2 < -0.1 ) {
-                            acquirer.slidesUp();
-                        }
-                    }
-                    else {
-//                Raises or lowers depending on if up or down
-                        if (leftInput2 > 0.1) {
-                            acquirer.slidesUp();
-                        } else if (leftInput2 < -0.1 ) {
-                            acquirer.slidesDown();
-                        }
-                    }
-                }
-                else {
-                    acquirer.slidesOff();
-                }
-
-            }
+//            if (Math.abs(rightInput2) > 0.3) {
+////                Either scores or acquires depending on if up or down
+//                if (rightInput2 > 0.3) {
+//                    acquirer.scoring();
+//                }
+//                else if (rightInput2 < -0.3) {
+//                    acquirer.acquiring();
+//                }
+//            }
+////            Individually controlling the linear slides and the acquirer
+//            else {
+////                Making it so that the slides and acquirer can run at the same time
+////                Acquirer uses bumpers
+//                if (gamepad2.right_bumper) {
+//                    acquirer.acquirerUp();
+//                }
+//                else if (gamepad2.left_bumper) {
+//                    acquirer.acquirerDown();
+//                }
+//                else {
+//                    acquirer.acquirerOff();
+//                }
+////                Linear slide uses the left joystick (same logic as right joystick)
+//                if (Math.abs(leftInput2) > 0.1) {
+//                    if (slideInput2 > 0.3) {
+////                Raises or lowers depending on if up or down
+//                        if (leftInput2 > 0.1) {
+//                            acquirer.slidesDown();
+//                        } else if (leftInput2 < -0.1 ) {
+//                            acquirer.slidesUp();
+//                        }
+//                    }
+//                    else {
+////                Raises or lowers depending on if up or down
+//                        if (leftInput2 > 0.1) {
+//                            acquirer.slidesUp();
+//                        } else if (leftInput2 < -0.1 ) {
+//                            acquirer.slidesDown();
+//                        }
+//                    }
+//                }
+//                else {
+//                    acquirer.slidesOff();
+//                }
+//
+//            }
 //            Miscellaneous arm and alignment servos
 //            Platform servos use a and b (operate together, not independently)
             if (gamepad1.a) platform.platformUp();

@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.hardware.oldHardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
-import org.firstinspires.ftc.teamcode.hardware.Park;
+import org.firstinspires.ftc.teamcode.hardware.Tape;
 import org.firstinspires.ftc.teamcode.hardware.oldHardware.Platform;
 import org.firstinspires.ftc.teamcode.hardware.oldHardware.Switch;
 
@@ -21,7 +21,7 @@ public class Ferry extends LinearOpMode {
     private Platform platform = new Platform (this);
     private Switch limitSwitch = new Switch (this);
     private Arm.Capstone capstone = new Arm.Capstone(this);
-    private Park parker = new Park(this);
+    private Tape parker = new Tape(this);
     @Override
     public void runOpMode() throws InterruptedException {
 //        Initializing

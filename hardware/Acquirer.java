@@ -26,16 +26,22 @@ public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism 
         acquirerLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         acquirerRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        acquirerLeft.setMode();
+        acquirerLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        acquirerRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void acquire() {
-        acquirerLeft.setPower();
+    //It spins so i called it "spin"
+    public void spin(double power){
+        acquirerRight.setPower(power);
+        acquirerLeft.setPower(power);
     }
 
-    public void unacquire() {
+    public void acquire() {spin(-1);}
 
-    }
+    public void unacquire() {spin(1);}
+
+    public void off(){spin(0);}
+
 
 
 

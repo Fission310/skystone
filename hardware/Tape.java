@@ -7,12 +7,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-public class Park extends Mechanism {
+public class Tape extends Mechanism {
 
     public DcMotor tapeExtend;
 
-    public Park(){}
-    public Park(LinearOpMode opmode){this.opMode = opmode;}
+    public Tape(){}
+    public Tape(LinearOpMode opmode){this.opMode = opmode;}
 
     public void init(HardwareMap hwMap){
         tapeExtend = hwMap.dcMotor.get("tapeExtend");

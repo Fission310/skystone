@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.hardware.oldHardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.oldHardware.Switch;
-import org.firstinspires.ftc.teamcode.hardware.Park;
+import org.firstinspires.ftc.teamcode.hardware.Tape;
 
 
 @TeleOp(name="PairedMain", group="Main")
@@ -23,7 +23,7 @@ public class PairedMain extends LinearOpMode {
     private Platform platform = new Platform (this);
     private Switch limitSwitch = new Switch (this);
     private Arm.Capstone capstone = new Arm.Capstone(this);
-    private Park parker = new Park(this);
+    private Tape parker = new Tape(this);
     @Override
     public void runOpMode() throws InterruptedException {
 //        Initializing
@@ -87,7 +87,7 @@ public class PairedMain extends LinearOpMode {
 
 //            Moving the Lift
 //            Checks if right joystick is moved vertically
-            if (limitSwitch.isPressed()) {
+            /*if (limitSwitch.isPressed()) {
                 if (leftInput2 > 0.2) {
                     acquirer.slidesUp();
                 }
@@ -196,7 +196,7 @@ public class PairedMain extends LinearOpMode {
             telemetry.addData("leftx1", gamepad1.left_stick_x);
             telemetry.addData("lefty", leftInput2);
             telemetry.addData("limitSwitch", limitSwitch.isPressed());
-            telemetry.update();
+            telemetry.update();*/
         }
     }
 }
