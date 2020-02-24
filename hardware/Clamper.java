@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.hardware.oldHardware;
+package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -26,18 +26,18 @@ public class Clamper extends Mechanism {
     }
 
     public void downTopLeft(){
-        topLeft.setPosition(topLeft.getPosition() + 0.01);
+        topLeft.setPosition(topLeft.getPosition() + 0.001);
     }
 
     public void upTopLeft(){
-        topLeft.setPosition(topLeft.getPosition() -0.01);
+        topLeft.setPosition(topLeft.getPosition() -0.001);
     }
 
     public void downTopRight(){
-        topLeft.setPosition(topRight.getPosition() + 0.01);
+        topRight.setPosition(topRight.getPosition() + 0.001);
     }
 
     public void upTopRight(){
-        topLeft.setPosition(topRight.getPosition() -0.01);
+        topRight.setPosition(topRight.getPosition() -0.001);
     }
 }

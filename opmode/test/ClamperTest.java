@@ -4,7 +4,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.hardware.oldHardware.Clamper;
+import org.firstinspires.ftc.teamcode.hardware.Clamper;
+import org.firstinspires.ftc.teamcode.hardware.Leg;
 
 
 @Config
@@ -12,10 +13,12 @@ import org.firstinspires.ftc.teamcode.hardware.oldHardware.Clamper;
 public class ClamperTest extends LinearOpMode {
 
     public Clamper clamper = new Clamper(this);
+    public Leg score = new Leg(this);
 
     public void runOpMode(){
 
         clamper.init(hardwareMap);
+        score.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         waitForStart();
@@ -27,12 +30,15 @@ public class ClamperTest extends LinearOpMode {
                 clamper.downTopLeft();
             }
 
-            if(gamepad1.x){
-                clamper.upTopRight();
-            }
-            else if(gamepad1.y){
-                clamper.downTopRight();
-            }
+//            if(gamepad1.x){
+//                clamper.upTopRight();
+//            }
+//            else if(gamepad1.y){
+//                clamper.downTopRight();
+//            }
+
+            if(gamepad1.dpad_up) score.kick();
+            else if(gamepad1.dpad_down) score.back();
 
             telemetry.addData("TopLeft", clamper.topLeft.getPosition());
             telemetry.addData("TopRight", clamper.topRight.getPosition());

@@ -5,14 +5,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
-import org.firstinspires.ftc.teamcode.hardware.Score;
 
 @Config
 @TeleOp(name = "acquireTest", group = "Test")
 public class AcquireTest extends LinearOpMode {
 
     public Acquirer acquirer = new Acquirer(this);
-    //public Score score = new Score (this);
+    //public Leg score = new Leg (this);
 
     @Override
     public void runOpMode() throws InterruptedException{
