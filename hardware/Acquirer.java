@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism {
 
-    public DcMotor acquirerLeft;
-    public DcMotor acquirerRight;
+    private DcMotor acquirerLeft;
+    private DcMotor acquirerRight;
 
     public Acquirer() { }
 

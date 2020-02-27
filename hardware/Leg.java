@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Leg extends Mechanism {
 
-    public Servo leg;
+    private Servo leg;
 
     public Leg(){}
     public Leg(LinearOpMode opMode){this.opMode = opMode;}

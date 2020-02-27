@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class Lift extends Mechanism {
 
-    public DcMotor pulley;
+    private DcMotor pulley;
 
     public Lift(){};
     public Lift(LinearOpMode opMode){this.opMode = opMode;}

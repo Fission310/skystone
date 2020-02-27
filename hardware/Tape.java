@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Tape extends Mechanism {
 
-    public DcMotor tapeExtend;
+    private DcMotor tapeExtend;
 
     public Tape(){}
     public Tape(LinearOpMode opmode){this.opMode = opmode;}
