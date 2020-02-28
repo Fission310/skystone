@@ -37,11 +37,11 @@ public class ClamperTest extends LinearOpMode {
 //                clamper.downTopRight();
 //            }
 
-            if(gamepad1.dpad_up) score.kick();
-            else if(gamepad1.dpad_down) score.back();
+            if(gamepad1.dpad_up) score.push();
+            else if(gamepad1.dpad_down) score.resetLeg();
 
             telemetry.addData("TopLeft", clamper.topLeft.getPosition());
-            telemetry.addData("TopRight", clamper.topRight.getPosition());
+            telemetry.addData("BotRight", clamper.topRight.getPosition());
             telemetry.update();
         }
 

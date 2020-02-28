@@ -1,23 +1,20 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 
 public class Tape extends Mechanism {
 
-    private DcMotor tapeExtend;
+    private CRServo tapeExtend;
 
     public Tape(){}
     public Tape(LinearOpMode opmode){this.opMode = opmode;}
 
     public void init(HardwareMap hwMap){
-        tapeExtend = hwMap.dcMotor.get("tapeExtend");
-        tapeExtend.setDirection(DcMotorSimple.Direction.REVERSE);
-        tapeExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        tapeExtend = hwMap.crservo .get("tapeExtend");
 
     }
 

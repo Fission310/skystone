@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
-import org.firstinspires.ftc.teamcode.hardware.Tape;
+//import org.firstinspires.ftc.teamcode.hardware.Tape;
 import org.firstinspires.ftc.teamcode.hardware.Clamper;
 import org.firstinspires.ftc.teamcode.hardware.Leg;
 import org.firstinspires.ftc.teamcode.hardware.Lift;
@@ -17,8 +17,8 @@ public class PairedMain extends LinearOpMode {
     private double leftInput1, rightInput1, slideInput1, leftInput2, rightInput2, slideInput2;
     private Drivetrain drive = new Drivetrain(this);
     private Acquirer acquirer = new Acquirer(this);
-    private Tape parker = new Tape(this);
-    private Leg leg = new Leg(this);
+//    private Tape parker = new Tape(this);
+//    private Leg leg = new Leg(this);
     private Lift lift = new Lift(this);
     private Clamper clamper = new Clamper(this);
 
@@ -27,8 +27,8 @@ public class PairedMain extends LinearOpMode {
         //Initializing
         acquirer.init(hardwareMap);
         drive.init(hardwareMap);
-        parker.init(hardwareMap);
-        leg.init(hardwareMap);
+//        parker.init(hardwareMap);
+//        leg.init(hardwareMap);
         lift.init(hardwareMap);
         clamper.init(hardwareMap);
 
@@ -64,26 +64,46 @@ public class PairedMain extends LinearOpMode {
             double rightX1 = gamepad1.right_stick_x;
 
             // Controller 1: Driver
-            if (gamepad1.dpad_left) drive.strafeLeft();
-            else if (gamepad1.dpad_right) drive.strafeRight();
-            if (slideInput1 > 0.3) drive.teleDrive(r/2, robotAngle, rightX1/3);
-            else if (slideInput1 < -0.3) drive.teleDrive(r/4, robotAngle, rightX1/4);
-            else drive.teleDrive(r, robotAngle, rightX1);
+            if (gamepad1.dpad_left) {
+                drive.strafeLeft();
+            }
+            else if (gamepad1.dpad_right) {
+                drive.strafeRight();
+            }
+            else if (slideInput1 > 0.3) {
+                drive.teleDrive(r/2, robotAngle, rightX1/3);
+            }
+            else if (slideInput1 < -0.3){
+                drive.teleDrive(r/4, robotAngle, rightX1/4);
+            }
+            else {
+                drive.teleDrive(r, robotAngle, rightX1);
+            }
 
-            if(gamepad1.a) acquirer.acquire();
-            else if(gamepad1.b) acquirer.unacquire();
-            else acquirer.off();
+            if(gamepad1.a) {
+                acquirer.acquire();
+            }
+            else if(gamepad1.b) {
+                acquirer.unacquire();
+            }
+            else {
+                acquirer.off();
+            }
 
-            if(gamepad1.dpad_up) parker.extend();
-            else if(gamepad1.dpad_down) parker.retract();
-            else parker.stop();
+//            if(gamepad1.dpad_up) parker.extend();
+//            else if(gamepad1.dpad_down) parker.retract();
+//            else parker.stop();
 
-            if(gamepad1.left_bumper) leg.kick();
-            if (gamepad1.right_bumper) leg.back();
+//            if(gamepad1.left_bumper) leg.kick();
+//            if (gamepad1.right_bumper) leg.back();
 
-            if(gamepad1.x) lift.up();
-            else if (gamepad1.y) lift.down();
-            else lift.stop();
+            if(gamepad1.x){
+                clamper.close();
+            }
+            else if (gamepad1.y){
+                clamper.open();
+            }
+//            else lift.stop();
 
             telemetry.addData("slide", slideInput1);
             telemetry.addData("righttrigger", gamepad1.right_trigger);

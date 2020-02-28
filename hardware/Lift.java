@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,10 +9,16 @@ public class Lift extends Mechanism {
 
     private DcMotor pulley;
 
-    public Lift(){};
-    public Lift(LinearOpMode opMode){this.opMode = opMode;}
+    public Lift() {
+    }
 
-    public void init(HardwareMap hwMap){
+    ;
+
+    public Lift(LinearOpMode opMode) {
+        this.opMode = opMode;
+    }
+
+    public void init(HardwareMap hwMap) {
 
         pulley = hwMap.dcMotor.get("pulley");
         pulley.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -21,7 +26,16 @@ public class Lift extends Mechanism {
 
     }
 
-    public void up(){pulley.setPower(1);}
-    public void down(){pulley.setPower(-1);}
-    public void stop(){pulley.setPower(0);}
+    public void up() {
+        pulley.setPower(1);
+    }
+
+    public void down() {
+        pulley.setPower(-1);
+    }
+
+    public void stop() {
+        pulley.setPower(0);
+    }
+
 }

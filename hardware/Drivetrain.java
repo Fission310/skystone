@@ -142,13 +142,13 @@ public class Drivetrain extends Mechanism {
     public void strafeLeft() {
         setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //        teleDrive(power,  3 * Math.PI / 4,0);
-        setPower(-0.5, 0.45, 0.55, -0.5);
+        setPower(-1, 1, 1, -1);
     }
 
     public void strafeRight() {
         setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //        teleDrive(power, 2.5,0);
-        setPower(0.52, -0.45, -0.5, 0.5);
+        setPower(1, -1, -1, 1);
     }
 
 
