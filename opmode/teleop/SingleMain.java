@@ -4,17 +4,16 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
-import org.firstinspires.ftc.teamcode.hardware.Clamper;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
+import org.firstinspires.ftc.teamcode.hardware.Lock;
+//import org.firstinspires.ftc.teamcode.hardware.Tape;
+import org.firstinspires.ftc.teamcode.hardware.Clamper;
 import org.firstinspires.ftc.teamcode.hardware.Leg;
 import org.firstinspires.ftc.teamcode.hardware.Lift;
-import org.firstinspires.ftc.teamcode.hardware.Lock;
-
-//import org.firstinspires.ftc.teamcode.hardware.Tape;
 
 
 @TeleOp(name="SingleMain", group="Main")
-public class PairedMain extends LinearOpMode {
+public class SingleMain extends LinearOpMode {
 
     private double leftInput1, rightInput1, slideInput1, leftInput2, rightInput2, slideInput2;
     private Drivetrain drive = new Drivetrain(this);
@@ -87,12 +86,12 @@ public class PairedMain extends LinearOpMode {
                 drive.teleDrive(r, robotAngle, rightX1);
             }
 
-            if(gamepad2.a) {
+            if(gamepad1.a) {
                 lock.pusherUp();
                 acquirer.acquire();
 
             }
-            else if(gamepad2.b) {
+            else if(gamepad1.b) {
 
                 acquirer.unacquire();
             }
@@ -104,7 +103,7 @@ public class PairedMain extends LinearOpMode {
 //            else if(gamepad1.dpad_down) parker.retract();
 //            else parker.stop();
 
-            if(gamepad2.right_bumper) {
+            if(gamepad1.right_bumper) {
                 lock.stopperUp();
                 leg.push();
                 sleep(400);
@@ -113,10 +112,10 @@ public class PairedMain extends LinearOpMode {
                 leg.stopLeg();
                 lock.stopperDown();
             }
-            if (gamepad2.dpad_up) {
+            if (gamepad1.dpad_up) {
                 lock.pusherUp();
             }
-            else if (gamepad2.dpad_down) {
+            else if (gamepad1.dpad_down) {
                 lock.pusherDown();
             }
             if (clampBool) {
@@ -125,18 +124,18 @@ public class PairedMain extends LinearOpMode {
             else {
                 clamper.open();
             }
-            if (gamepad2.x) {
+            if (gamepad1.x) {
                 clampBool = !clampBool;
                 sleep(200);
             }
-            else if (gamepad2.y){
+            else if (gamepad1.y){
                 clamper.open();
             }
 
-            if (slideInput2 > 0.3) {
+            if (slideInput1 > 0.3) {
                 lift.up();
             }
-            else if (slideInput2 < -0.3) {
+            else if (slideInput1 < -0.3) {
                 lift.down();
             }
             else lift.stop();

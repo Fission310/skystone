@@ -30,12 +30,12 @@ public class ClamperTest extends LinearOpMode {
                 clamper.downTopLeft();
             }
 
-//            if(gamepad1.x){
-//                clamper.upTopRight();
-//            }
-//            else if(gamepad1.y){
-//                clamper.downTopRight();
-//            }
+            if(gamepad1.x){
+                clamper.upTopRight();
+            }
+            else if(gamepad1.y){
+                clamper.downTopRight();
+            }
 
             if(gamepad1.dpad_up) score.push();
             else if(gamepad1.dpad_down) score.resetLeg();

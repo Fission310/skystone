@@ -41,13 +41,13 @@ public class Clamper extends Mechanism {
         topRight.setPosition(topRight.getPosition() -0.001);
     }
 
-    public void close() {
-        topRight.setPosition(0.8);
-        topLeft.setPosition(0.4);
+    public void open() {
+        topRight.setPosition(0.86);
+        topLeft.setPosition(0.43);
     }
 
-    public void open() {
-        topRight.setPosition(0.4);
-        topLeft.setPosition(0.8);
+    public void close() {
+        topRight.setPosition(0.43);
+        topLeft.setPosition(0.86);
     }
 }

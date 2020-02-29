@@ -19,25 +19,18 @@ public class Leg extends Mechanism {
         leg = hwMap.dcMotor.get("stonePusher");
         leg.setDirection(DcMotorSimple.Direction.FORWARD);
         leg.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leg.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
     public void push() {
-        leg.setTargetPosition(200);
-        leg.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        while (opMode.opModeIsActive() && !leg.isBusy()) {
-            leg.setPower(0.7);
-        }
-        leg.setPower(0);
-        leg.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leg.setPower(-0.45);
     }
 
     public void resetLeg() {
-        leg.setTargetPosition(-200);
-        leg.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        while (opMode.opModeIsActive() && !leg.isBusy()) {
-            leg.setPower(-0.7);
-        }
+        leg.setPower(0.45);
+    }
+
+    public void stopLeg() {
         leg.setPower(0);
-        leg.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
 
