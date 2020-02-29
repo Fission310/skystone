@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+//import com.acmerobotics.dashboard.FtcDashboard;
+//import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import org.firstinspires.ftc.teamcode.PIDController;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -23,8 +23,8 @@ import java.util.Map;
 
 public class Drivetrain extends Mechanism {
     private static final double     COUNTS_PER_MOTOR_REV    = 723;
-    public FtcDashboard dash;
-    public TelemetryPacket packet;
+//    public FtcDashboard dash;
+//    public TelemetryPacket packet;
     /**
      * Drivetrain gear ratio (< 1.0 if geared up).
      */
@@ -108,10 +108,10 @@ public class Drivetrain extends Mechanism {
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
     }
-    public void setDash(FtcDashboard givenDash, TelemetryPacket givenPacket) {
-        dash = givenDash;
-        packet = givenPacket;
-    }
+//    public void setDash(FtcDashboard givenDash, TelemetryPacket givenPacket) {
+//        dash = givenDash;
+//        packet = givenPacket;
+//    }
     private void setPower(double power) {
         setPower(power, power, power, power);
     }
