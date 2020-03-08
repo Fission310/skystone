@@ -11,8 +11,8 @@ public class Clamper extends Mechanism {
 
     public Servo topLeft;
     public Servo topRight;
-    public Servo bottomLeft;
-    public Servo bottomRight;
+    public Servo botLeft;
+    public Servo botRight;
 
     public Clamper(){}
     public Clamper (LinearOpMode opMode){this.opMode = opMode;}
@@ -20,8 +20,9 @@ public class Clamper extends Mechanism {
     public void init(HardwareMap hwMap){
         topLeft = hwMap.servo.get("topLeftClamp");
         topRight = hwMap.servo.get("topRightClamp");
-        bottomLeft = hwMap.servo.get("botLeftClamp");
-        bottomRight = hwMap.servo.get("botRightClamp");
+        botLeft = hwMap.servo.get("botLeftClamp");
+        botRight = hwMap.servo.get("botRightClamp");
+        open();
 
     }
 
@@ -41,13 +42,32 @@ public class Clamper extends Mechanism {
         topRight.setPosition(topRight.getPosition() -0.001);
     }
 
+    public void downBotLeft(){
+        botLeft.setPosition(botLeft.getPosition() + 0.001);
+    }
+
+    public void upBotLeft(){
+        botLeft.setPosition(botLeft.getPosition() -0.001);
+    }
+
+    public void downBotRight(){
+        botRight.setPosition(botRight.getPosition() + 0.001);
+    }
+
+    public void upBotRight(){
+        botRight.setPosition(botRight.getPosition() -0.001);
+    }
     public void open() {
-        topRight.setPosition(0.86);
+        topRight.setPosition(0.98);
         topLeft.setPosition(0.43);
+        botLeft.setPosition(0.81);
+        botRight.setPosition(0.15);
     }
 
     public void close() {
-        topRight.setPosition(0.43);
-        topLeft.setPosition(0.86);
+        topRight.setPosition(0.36);
+        topLeft.setPosition(1);
+        botLeft.setPosition(0.08);
+        botRight.setPosition(0.80);
     }
 }

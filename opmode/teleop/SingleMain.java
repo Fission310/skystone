@@ -106,12 +106,10 @@ public class SingleMain extends LinearOpMode {
             if(gamepad1.right_bumper) {
                 lock.stopperUp();
                 leg.push();
-                sleep(400);
-                leg.resetLeg();
-                sleep(400);
-                leg.stopLeg();
                 lock.stopperDown();
             }
+
+
             if (gamepad1.dpad_up) {
                 lock.pusherUp();
             }

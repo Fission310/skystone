@@ -14,8 +14,7 @@ public class Tape extends Mechanism {
     public Tape(LinearOpMode opmode){this.opMode = opmode;}
 
     public void init(HardwareMap hwMap){
-        tapeExtend = hwMap.crservo .get("tapeExtend");
-
+        tapeExtend = hwMap.crservo.get("tape");
     }
 
     public void extend(){tapeExtend.setPower(1);}

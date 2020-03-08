@@ -36,11 +36,11 @@ public class Lock extends Mechanism {
     }
 
     public void stopperDown() {
-        stopper.setPosition(0.8);
+        stopper.setPosition(0.9);
     }
 
     public void stopperUp() {
-        stopper.setPosition(0.66);
+        stopper.setPosition(0.6);
     }
 
     public void pusherDown() {

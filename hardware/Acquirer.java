@@ -20,7 +20,7 @@ public class Acquirer extends org.firstinspires.ftc.teamcode.hardware.Mechanism 
         acquirerRight = hwMap.dcMotor.get("acquirerRight");
 
         acquirerLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-        acquirerRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        acquirerRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Set motor brake behavior
         acquirerLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

@@ -4,15 +4,16 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+
+
 
 public class Lift extends Mechanism {
 
-    private DcMotor pulley;
-
+    public DcMotor pulley;
+    public DigitalChannel botSwitch;
     public Lift() {
     }
-
-    ;
 
     public Lift(LinearOpMode opMode) {
         this.opMode = opMode;
@@ -23,15 +24,25 @@ public class Lift extends Mechanism {
         pulley = hwMap.dcMotor.get("pulley");
         pulley.setDirection(DcMotorSimple.Direction.FORWARD);
         pulley.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        botSwitch = hwMap.digitalChannel.get("botSwitch");
+        botSwitch.setMode(DigitalChannel.Mode.INPUT);
 
     }
 
+    public boolean botIsPressed() {
+        return !botSwitch.getState();
+    }
     public void up() {
-        pulley.setPower(1);
+        pulley.setPower(0.5);
     }
 
     public void down() {
-        pulley.setPower(-1);
+        if (botIsPressed()) {
+            pulley.setPower(0);
+        }
+        else {
+            pulley.setPower(-0.5);
+        }
     }
 
     public void stop() {

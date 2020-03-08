@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
 
 //@Config
-@TeleOp(name = "acquireTest", group = "Test")
+@TeleOp(name = "AcquireTest", group = "Test")
 public class AcquireTest extends LinearOpMode {
 
     public Acquirer acquirer = new Acquirer(this);

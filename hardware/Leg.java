@@ -21,17 +21,26 @@ public class Leg extends Mechanism {
         leg.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leg.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+//    public void push(int ticks, double power) {
+//        leg.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        while (Math.signum(ticks) * (ticks - leg.getCurrentPosition() ) > 15) {
+//            leg.setPower(power * Math.signum(ticks));
+//        }
+//        leg.setPower(0);
+//        leg.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//
+//    }
+
     public void push() {
-        leg.setPower(-0.45);
-    }
-
-    public void resetLeg() {
-        leg.setPower(0.45);
-    }
-
-    public void stopLeg() {
+        leg.setPower(0.37);
+        opMode.sleep(700);
+        leg.setPower(-0.37);
+        opMode.sleep(800);
         leg.setPower(0);
+
     }
+
+
 
 
 

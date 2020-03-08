@@ -1,43 +1,47 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import android.graphics.Paint;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.hardware.Acquirer;
+import org.firstinspires.ftc.teamcode.hardware.Capstone;
 import org.firstinspires.ftc.teamcode.hardware.Clamper;
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Leg;
 import org.firstinspires.ftc.teamcode.hardware.Lift;
 import org.firstinspires.ftc.teamcode.hardware.Lock;
 
-//import org.firstinspires.ftc.teamcode.hardware.Tape;
+import org.firstinspires.ftc.teamcode.hardware.Tape;
 
 
-@TeleOp(name="SingleMain", group="Main")
+@TeleOp(name="PairedMain", group="Main")
 public class PairedMain extends LinearOpMode {
 
     private double leftInput1, rightInput1, slideInput1, leftInput2, rightInput2, slideInput2;
     private Drivetrain drive = new Drivetrain(this);
     private Acquirer acquirer = new Acquirer(this);
-//    private Tape parker = new Tape(this);
+    private Tape tape = new Tape(this);
     private Leg leg = new Leg(this);
     private Lock lock = new Lock (this);
     private Lift lift = new Lift(this);
     private Clamper clamper = new Clamper(this);
-    boolean clampBool = false;
+    private Capstone cap = new Capstone(this);
+    private boolean clampBool = false;
+    private String pusher;
 
     @Override
     public void runOpMode() throws InterruptedException {
         //Initializing
         acquirer.init(hardwareMap);
         drive.init(hardwareMap);
-
-//        parker.init(hardwareMap);
-//        leg.init(hardwareMap);
         lock.init(hardwareMap);
         lift.init(hardwareMap);
         clamper.init(hardwareMap);
         leg.init(hardwareMap);
+        tape.init(hardwareMap);
+        cap.init(hardwareMap);
 
         while(!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("Status", "Waiting in Init");
@@ -77,22 +81,18 @@ public class PairedMain extends LinearOpMode {
             else if (gamepad1.dpad_right) {
                 drive.strafeRight();
             }
-            else if (slideInput1 > 0.3) {
-                drive.teleDrive(r/2, robotAngle, rightX1/3);
-            }
-            else if (slideInput1 < -0.3){
-                drive.teleDrive(r/4, robotAngle, rightX1/4);
+            else if (slideInput1 < -0.3) {
+                drive.teleDrive(r/3, robotAngle, rightX1/3);
             }
             else {
                 drive.teleDrive(r, robotAngle, rightX1);
             }
-
-            if(gamepad2.a) {
+            if(gamepad1.right_bumper) {
                 lock.pusherUp();
                 acquirer.acquire();
 
             }
-            else if(gamepad2.b) {
+            else if(gamepad1.left_bumper) {
 
                 acquirer.unacquire();
             }
@@ -100,23 +100,33 @@ public class PairedMain extends LinearOpMode {
                 acquirer.off();
             }
 
-//            if(gamepad1.dpad_up) parker.extend();
-//            else if(gamepad1.dpad_down) parker.retract();
-//            else parker.stop();
+            if (gamepad1.dpad_up) {
+                tape.extend();
+            }
+            else if (gamepad1.dpad_down) {
+                tape.retract();
+            }
+            else {
+                tape.stop();
+            }
 
-            if(gamepad2.right_bumper) {
+
+            if(gamepad2.y) {
+                pusher = "down";
+                lock.pusherDown();
                 lock.stopperUp();
+                sleep(500);
                 leg.push();
-                sleep(400);
-                leg.resetLeg();
-                sleep(400);
-                leg.stopLeg();
+                lock.pusherUp();
+                pusher = "up";
                 lock.stopperDown();
             }
-            if (gamepad2.dpad_up) {
+            if (gamepad2.a) {
+                pusher = "up";
                 lock.pusherUp();
             }
-            else if (gamepad2.dpad_down) {
+            else if (gamepad2.b) {
+                pusher = "down";
                 lock.pusherDown();
             }
             if (clampBool) {
@@ -129,24 +139,31 @@ public class PairedMain extends LinearOpMode {
                 clampBool = !clampBool;
                 sleep(200);
             }
-            else if (gamepad2.y){
-                clamper.open();
-            }
 
-            if (slideInput2 > 0.3) {
+            if (leftInput2 > 0.3 ) {
                 lift.up();
             }
-            else if (slideInput2 < -0.3) {
+            else if (leftInput2 < -0.3 && !lift.botIsPressed()) {
                 lift.down();
             }
             else lift.stop();
 
-            telemetry.addData("slide", slideInput1);
-            telemetry.addData("righttrigger", gamepad1.right_trigger);
-            telemetry.addData("rightx1", rightX1);
-            telemetry.addData("leftx1", gamepad1.left_stick_x);
-            telemetry.addData("lefty", leftInput2);
+            if(gamepad2.left_bumper){
+                cap.down();
+                sleep(400);
+                cap.up();
+            }
+
+            telemetry.addData("angle", drive.getAngle());
+//            telemetry.addData("slide", slideInput1);
+//            telemetry.addData("righttrigger", gamepad1.right_trigger);
+//            telemetry.addData("rightx1", rightX1);
+//            telemetry.addData("leftx1", gamepad1.left_stick_x);
+//            telemetry.addData("lefty", leftInput2);
+            telemetry.addData("pusher", pusher);
+            telemetry.addData("clamper", clampBool);
             telemetry.update();
+
         }
     }
 }
